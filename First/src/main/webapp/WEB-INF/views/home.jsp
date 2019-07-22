@@ -10,5 +10,7 @@
 </h1>
 
 <a href="login_form">Login</a>
+<a href="signUpDoctor">Sign Up Doctor</a>
+<a href="signUpPatient">Sign Up Patient</a>
 </body>
 </html>

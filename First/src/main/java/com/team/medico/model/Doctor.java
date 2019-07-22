@@ -14,7 +14,7 @@ public class Doctor {
 
 	@Id
 	@Column(name = "email_id")
-	private int emailId;
+	private String emailId;
 	@Column(name = "degree")
 	private String degree;
 	@Column(name = "degree_img")
@@ -24,7 +24,7 @@ public class Doctor {
 	@Column(name = "license_img")
 	private String licenseImg;
 	@Column(name = "current_post")
-	private double currentPost;
+	private String currentPost;
 	@Column(name = "pref_language")
 	private String prefLanguage;
 	@Column(name = "years_of_experience")
@@ -50,11 +50,11 @@ public class Doctor {
 	@JoinColumn(name = "email_id")
 	private User user;
 
-	public int getEmailId() {
+	public String getEmailId() {
 		return emailId;
 	}
 
-	public void setEmailId(int emailId) {
+	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
 
@@ -90,11 +90,11 @@ public class Doctor {
 		this.licenseImg = licenseImg;
 	}
 
-	public double getCurrentPost() {
+	public String getCurrentPost() {
 		return currentPost;
 	}
 
-	public void setCurrentPost(double currentPost) {
+	public void setCurrentPost(String currentPost) {
 		this.currentPost = currentPost;
 	}
 

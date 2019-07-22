@@ -34,8 +34,8 @@ public class MedicoDaoImple implements MedicoDao {
 	@Override
 	public boolean validateUser(User user) {
 		Session session = this.sessionFactory.openSession();
-		Query q = session.createQuery("from User where userName = ? and password = ?");
-		q.setString(0, user.getUserName());
+		Query q = session.createQuery("from User where emailId = ? and password = ?");
+		q.setString(0, user.getEmailId());
 		q.setString(1, user.getPassword());
 		List<User> userList = q.list();
 		session.close();
@@ -43,6 +43,15 @@ public class MedicoDaoImple implements MedicoDao {
 			return true;
 		}
 		return false;
+	}
+	
+	//@SuppressWarnings("unchecked")
+	@Override
+	public User getUserByEmailId(String emailId) {
+		Session session = this.sessionFactory.openSession();
+		User user = (User)session.get(User.class,emailId);
+		session.close();
+		return user;
 	}
 
 }

@@ -1,12 +1,12 @@
 package com.team.medico.model;
 
 import javax.persistence.Column;
-import java.util.Date;
+//import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+//import javax.persistence.Temporal;
+//import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "user")
@@ -26,8 +26,8 @@ public class User {
 	@Column(name = "aadhar")
 	private double aadharNo;
 	@Column(name = "dob")
-	@Temporal(TemporalType.DATE)
-	private Date dob;
+//	@Temporal(TemporalType.DATE)
+	private String dob;
 	@Column(name = "is_active")
 	private String isActive;
 	@Column(name = "type_of_user")
@@ -86,11 +86,11 @@ public class User {
 		this.aadharNo = aadharNo;
 	}
 
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 

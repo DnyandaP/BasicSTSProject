@@ -16,5 +16,10 @@ public class MedicoServiceImple implements MedicoService {
 	public boolean checkUser(User user) {
 		return medDao.validateUser(user);
 	}
+	
+	@Override
+	public User getUser(String emailId) {
+		return medDao.getUserByEmailId(emailId);
+	}
 
 }
