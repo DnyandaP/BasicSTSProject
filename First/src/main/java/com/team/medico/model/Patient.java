@@ -14,9 +14,9 @@ public class Patient {
 
 	@Id
 	@Column(name = "email_id")
-	private int emailId;
+	private String emailId;
 	@Column(name = "blood_group")
-	private String degree;
+	private String bloodGroup;
 	@Column(name = "weight")
 	private String weight;
 	@Column(name = "current_medication")
@@ -24,7 +24,7 @@ public class Patient {
 	@Column(name = "marital_status")
 	private String maritalStatus;
 	@Column(name = "occupation")
-	private double occupation;
+	private String occupation;
 	@Column(name = "diet")
 	private String diet;
 	@Column(name = "relationship_with_patient ")
@@ -42,23 +42,25 @@ public class Patient {
 	private User user;
 
 
-	public int getEmailId() {
+	public String getEmailId() {
 		return emailId;
 	}
 
 
-	public void setEmailId(int emailId) {
+	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
 
 
-	public String getDegree() {
-		return degree;
+	
+
+	public String getBloodGroup() {
+		return bloodGroup;
 	}
 
 
-	public void setDegree(String degree) {
-		this.degree = degree;
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
 	}
 
 
@@ -92,12 +94,12 @@ public class Patient {
 	}
 
 
-	public double getOccupation() {
+	public String getOccupation() {
 		return occupation;
 	}
 
 
-	public void setOccupation(double occupation) {
+	public void setOccupation(String occupation) {
 		this.occupation = occupation;
 	}
 
@@ -134,7 +136,7 @@ public class Patient {
 
 	@Override
 	public String toString() {
-		return "Patient [emailId=" + emailId + ", degree=" + degree + ", weight=" + weight + ", currentMedication="
+		return "Patient [emailId=" + emailId + ", bloodGroup=" + bloodGroup + ", weight=" + weight + ", currentMedication="
 				+ currentMedication + ", maritalStatus=" + maritalStatus + ", occupation=" + occupation + ", diet="
 				+ diet + ", relationshipWithPatient=" + relationshipWithPatient + ", user=" + user + "]";
 	}

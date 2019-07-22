@@ -2,6 +2,7 @@ package com.team.medico.service;
 
 
 
+import com.team.medico.model.Patient;
 import com.team.medico.model.User;
 
 
@@ -13,4 +14,5 @@ public interface MedicoService {
 	//public List<User> selectAllUsers();
 	public boolean checkUser(User user);
 	public User getUser(String emailId);
+	public void insertPatient(Patient patient, User user);
 }

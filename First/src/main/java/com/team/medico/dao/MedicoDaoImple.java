@@ -4,13 +4,15 @@ package com.team.medico.dao;
 import java.util.List;
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.team.medico.model.Patient;
 import com.team.medico.model.User;
 
 
@@ -53,8 +55,29 @@ public class MedicoDaoImple implements MedicoDao {
 		session.close();
 		return user;
 	}
+	
+	@Override
+	public void savePatient(final Patient patient) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(patient);
+		tx.commit();
+		session.close();
+	}
+	
+	@Override
+	public void saveUser(final User user) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		session.save(user);
+		tx.commit();
+		session.close();
+	}
 
 }
+
+	
 
 //@Transactional
 //@Repository

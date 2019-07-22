@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.medico.model.Doctor;
+import com.team.medico.model.Patient;
 import com.team.medico.model.User;
 import com.team.medico.service.MedicoService;
 
@@ -104,19 +105,34 @@ public class MedicoController {
 		return "sign-up-doctor";
 	}
 	
-	@RequestMapping(value="/signUpPatient")
-	public String signUpPatient(ModelMap model) {
-		model.put("user", new User());
-		model.put("patient",new Doctor());
-		return "sign-up-patient";
-	}
-	
 	@RequestMapping(value="/saveDoctor")
 	public String saveDoctor(Doctor doctor,User user,ModelMap model) {
 		System.out.println(user.getContactNo());
 		System.out.println(doctor.getLicense());
+		
 		model.put("user", new User());
 		model.put("doctor",new Doctor());
+		return "login";
+	}
+	
+	//sign Up for patient
+	@RequestMapping(value="/signUpPatient")
+	public String signUpPatient(ModelMap model) {
+		model.put("user", new User());
+		model.put("patient",new Patient());
+		return "sign-up-patient";
+	}
+	
+	//after submit of patient reg form
+	@RequestMapping(value="/savePatient")
+	public String savePatient(@RequestParam(name = ""),Patient patient,User user,ModelMap model) {
+		System.out.println(user.getContactNo());
+		System.out.println(patient.getDiet());
+		System.out.println(patient.getBloodGroup());
+		user.setUserType("patient");
+		userService.insertPatient(patient, user);
+		model.put("user", new User());
+		model.put("patient",new Patient());
 		return "login";
 	}
 	
