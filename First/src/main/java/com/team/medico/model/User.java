@@ -1,9 +1,15 @@
 package com.team.medico.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 //import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 //import javax.persistence.Temporal;
 //import javax.persistence.TemporalType;
@@ -32,6 +38,12 @@ public class User {
 	private String isActive;
 	@Column(name = "type_of_user")
 	private String userType;
+	
+	
+	@ManyToMany
+	@JoinTable(name = "preferred_language_user",joinColumns = {@JoinColumn(name="email_id")},inverseJoinColumns = {@JoinColumn(name="language_id")})
+	private Set<PreferredLanguage> preferredLanguage = new HashSet<PreferredLanguage>();
+
 
 	public User() {
 		super();
@@ -49,6 +61,14 @@ public class User {
 
 	public String getUserName() {
 		return userName;
+	}
+
+	public Set<PreferredLanguage> getPreferredLanguage() {
+		return preferredLanguage;
+	}
+
+	public void setPreferredLanguage(Set<PreferredLanguage> preferredLanguage) {
+		this.preferredLanguage = preferredLanguage;
 	}
 
 	public void setUserName(String userName) {

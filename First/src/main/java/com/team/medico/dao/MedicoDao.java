@@ -1,6 +1,9 @@
 package com.team.medico.dao;
 
+import com.team.medico.model.Doctor;
+import com.team.medico.model.History;
 import com.team.medico.model.Patient;
+import com.team.medico.model.PreferredLanguage;
 import com.team.medico.model.User;
 
 public interface MedicoDao {	
@@ -11,5 +14,8 @@ public interface MedicoDao {
 	//public List<User> getAll() ;
 	public boolean validateUser(final User user);
 	public User getUserByEmailId(String emailId);
+	public PreferredLanguage getLanguageById(String languageId);
+	public void saveHistory(History history);
+	public void insertDoctor(Doctor doctor,User user);
 }
 

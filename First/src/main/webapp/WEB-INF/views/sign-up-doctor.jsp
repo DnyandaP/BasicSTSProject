@@ -21,7 +21,7 @@
 	<nav
 		class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">Medico</a>
+			<a class="navbar-brand" href="/medico/">Medico</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button"
 				data-toggle="collapse" data-target="#navbarResponsive"
 				aria-controls="navbarResponsive" aria-expanded="false"
@@ -30,9 +30,9 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="signup.html">Sign
+					<li class="nav-item"><a class="nav-link" href="signUpDoctor">Sign
 							Up</a></li>
-					<li class="nav-item"><a class="nav-link" href="login.html">Login</a>
+					<li class="nav-item"><a class="nav-link" href="login_form">Login</a>
 					</li>
 				</ul>
 			</div>
@@ -102,7 +102,7 @@
 									<select name="gender" class="form-control">
 										<option selected>Gender</option>
 										<option value="Male">Male</option>
-										<option value="Female">FeMale</option>
+										<option value="Female">Female</option>
 									</select>
 									</spring:bind>
 								</div>
@@ -136,13 +136,13 @@
 								<div class="form-group col-md-6">
 									<spring:bind path="doctor.degree">
 									<input id="Degree" name="degree" placeholder="Degree"
-										class="form-control" required="required" type="text">
+										class="form-control"  type="text"><!-- required removed required="required" -->
 									</spring:bind>
 								</div>
 								<div class="form-group col-md-6">
 									<spring:bind path="doctor.degreeImg">
 									<input id="DegreeImg" name="degreeImg" placeholder="Degree"
-										class="form-control" required="required" type="file">
+										class="form-control"  type="file"><!-- required removed required="required" -->
 									</spring:bind>
 								</div>
 							</div>
@@ -150,7 +150,7 @@
 								<div class="form-group col-md-6">
 									<spring:bind path="doctor.license">
 									<input id="License" name="license" placeholder="License"
-										class="form-control" required="required" type="text">
+										class="form-control"  type="text"><!-- required removed required="required" -->
 									</spring:bind>
 								</div>
 								<div class="form-group col-md-6">
@@ -169,10 +169,18 @@
 										type="text">
 									</spring:bind>
 								</div>
-								<div class="form-group col-md-6">
-									<spring:bind path="doctor.practiceHours">
-									<input id="ParcticeHours" name="practiceHours"
-										placeholder="Parctice Hours" class="form-control" type="text">
+								<div class="form-group col-md-3">
+									Practice Hours
+									<spring:bind path="doctor.practiceHoursStart">
+									<input id="ParcticeHours" name="practiceHoursStart"
+										placeholder="Parctice Hours" class="form-control" type="time">
+									</spring:bind>
+								</div>
+								<div class="form-group col-md-3">
+									<br/>
+									<spring:bind path="doctor.practiceHoursEnd">
+									<input id="ParcticeHours" name="practiceHoursEnd"
+										placeholder="Parctice Hours" class="form-control" type="time">
 									</spring:bind>
 								</div>
 							</div>
@@ -180,8 +188,18 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="doctor.specialization">
-									<input id="Speclization" name="specialization"
-										placeholder="Speclization" class="form-control" type="text">
+									<select id="inputState" name="specialization" class="form-control">
+                                                <option selected>Specialization</option>
+                                                <option value="A+"> A+ </option>
+                                                <option value="A-"> A- </option>
+                                                <option value="AB+"> AB+ </option>
+                                                <option value="AB-"> AB- </option>
+                                                <option value="B+"> B+ </option>
+                                                <option value="B-"> B- </option>
+                                                <option value="O+"> O+ </option>
+                                                <option value="O-"> O- </option>
+                                                <option value="Other"> Other </option>
+                                              </select>
 									</spring:bind>
 								</div>
 								<div class="form-group col-md-6">
@@ -195,7 +213,7 @@
 								<div class="form-group col-md-6">
 									<spring:bind path="doctor.duration">
 									<input id="Duration" name="duration" placeholder="Duration"
-										class="form-control" type="text">
+										class="form-control" type="number">
 									</spring:bind>
 								</div>
 								<div class="form-group col-md-6">
@@ -213,13 +231,13 @@
 									<label>Preferred language</label>
 									<div class="checkbox">
 						
-										<label><input name="prefLanguage" type="checkbox" value="English">English</label>
+										<label><input name="prefLanguage" type="checkbox" value="1">English</label>
 									</div>
 									<div class="checkbox">
-										<label><input name="prefLanguage" type="checkbox" value="Marathi">Marathi</label>
+										<label><input name="prefLanguage" type="checkbox" value="3">Marathi</label>
 									</div>
 									<div class="checkbox">
-										<label><input name="prefLanguage" type="checkbox" value="Hindi">Hindi</label>
+										<label><input name="prefLanguage" type="checkbox" value="2">Hindi</label>
 									</div>
 									
 								</div>
@@ -240,6 +258,8 @@
 
 								</div>
 							</div>
+							<input id="DegreeImg" name="file" placeholder="Degree"
+										class="form-control"  type="file"> <!-- test -->
 
 							<div class="form-row">
 								<div class="form-group col-md-4">
@@ -248,7 +268,7 @@
 								<div class="form-group col-md-4"></div>
 								<div class="form-group col-md-4">
 
-									<a href='login'><button class="btn btn-primary">Login</button></a>
+									<a href='login_form'><button class="btn btn-primary">Login</button></a>
 								</div>
 							</div>
 						</form>

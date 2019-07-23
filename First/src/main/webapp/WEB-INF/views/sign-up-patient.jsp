@@ -19,17 +19,17 @@
 <!--navbar-->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div class="container">
-              <a class="navbar-brand" href="index.html">Medico</a>
+              <a class="navbar-brand" href="/medico/">Medico</a>
               <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                    <a class="nav-link" href="signup.html">Sign Up</a>
+                    <a class="nav-link" href="signUpPatient">Sign Up</a>
                   </li> 
                   <li class="nav-item">
-                    <a class="nav-link" href="login.html">Login</a>
+                    <a class="nav-link" href="login_form">Login</a>
                   </li> 
                 </ul>
               </div>
@@ -49,7 +49,7 @@
 									style="width: 70%">
                                     <h2 class="py-3">Sign Up Patient</h2>
                                     <p>Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu, facete detracto patrioque an per, lucilius pertinacia eu vel.
-           </p>
+          							</p>
                                 </div>
                             </div>
                         </div>
@@ -72,9 +72,11 @@
                                     
                                     <!-- Email Id -->
                                       <spring:bind path="user.emailId">
-									<input type="email" name="emailId" pattern=".{8,}" title="8 or more character"
+									<input type="email" name="emailId"  pattern=".{8,}" title="8 or more character"
 										class="form-control" id="inputEmail4" placeholder="Email">
 									</spring:bind>
+									<!-- ajax response -->
+                                     		<div id="ajaxResponse" style="color:red"></div>
                                     </div>
                                 </div>
                                 
@@ -99,44 +101,29 @@
 									</spring:bind>
                                     </div>
                                 </div>
-								<div class="form-row">
-								<div class="form-group col-md-6">
-								
-								<!-- gender -->
-									<spring:bind path="user.gender">
-									<select name="gender" class="form-control">
-										<option selected>Gender</option>
-										<option value="Male">Male</option>
-										<option value="Female">FeMale</option>
-									</select>
-									</spring:bind>
-								</div>
-								</div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                     
                                     <!-- weight -->
-                                        <input id="Weight" name="Weight" placeholder="Weight" class="form-control" required="required" type="number">
+                                    <spring:bind path="patient.weight">
+                                        <input id="Weight" name="weight" placeholder="weight" class="form-control" required="required" type="number">
+                                    </spring:bind>
                                     </div>
-                                    <div class="form-group col-md-4">
-                                    			<spring:bind path="patient.bloodGroup">
+                                    <div class="form-group col-md-6">
+                                    		<spring:bind path="patient.bloodGroup">
                                               <select id="inputState" name="bloodGroup" class="form-control">
                                                 <option selected>Blood Group</option>
                                                 <option value="A+"> A+ </option>
-                                                <option> AB </option>
-                                                <option> B+ </option>
-                                                <option> O+ </option>
+                                                <option value="A-"> A- </option>
+                                                <option value="AB+"> AB+ </option>
+                                                <option value="AB-"> AB- </option>
+                                                <option value="B+"> B+ </option>
+                                                <option value="B-"> B- </option>
+                                                <option value="O+"> O+ </option>
+                                                <option value="O-"> O- </option>
+                                                <option value="Other"> Other </option>
                                               </select>
-                                              </spring:bind>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                    
-                                    <!-- dob -->
-                                       <spring:bind path="user.dob">
-									<input type="date" class="form-control" id="dateofbirth"
-									name="dob"
-										placeholder="Dateofbirth">
-									</spring:bind>
+                                           	 </spring:bind>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -148,15 +135,17 @@
                                         </spring:bind>
                                         </div>
                                         <div class="form-group col-md-6">
-                                              <spring:bind path="patient.relationshipWithPatient">
+                                             <spring:bind path="patient.relationshipWithPatient">
                                               <select id="inputState" name="relationshipWithPatient" class="form-control">
                                                 <option selected>Relationship With Patient</option>
                                                 <option value="Son"> Son </option>
-                                                <option> Daughter  </option>
-                                                <option> Wife </option>
-                                                <option> 3 </option>
+                                                <option value="Daughter"> Daughter  </option>
+                                                <option value="Wife"> Wife </option>
+                                                <option value="Husband"> Husband </option>
+                                                <option value="Self"> Self </option>
+                                                <option value="Other"> Other </option>
                                               </select>
-                                              </spring:bind>
+                                             </spring:bind>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -175,9 +164,9 @@
                                           <select id="inputState" name="diet" class="form-control">
                                             <option selected>Diet</option>
                                             <option value="vegan"> Vegan </option>
-                                            <option> 1  </option>
-                                            <option> 2 </option>
-                                            <option> 3 </option>
+                                            <option value="Vegetarian"> Vegetarian  </option>
+                                            <option value="Non-Vegetarian"> Non-Vegetarian </option>
+                                            <option value="Other"> Other </option>
                                           </select>
                                           </spring:bind>
                                 </div>
@@ -197,19 +186,67 @@
 									</spring:bind>
                                     </div>
                                   </div>
-                                  <div class="form-row">
+                                  
+								<div class="form-row">
+                                  <div class="form-group col-md-6">
+                                  	<spring:bind path="history.timePeriodMonths">
+                                    <input id="timePeriodMonths" name="timePeriodMonths" placeholder="timePeriodMonths" class="form-control" type="number">
+                                  	</spring:bind>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                  	  <spring:bind path="history.previousDoctor">	
+                                      <input id="previousDoctor" name="previousDoctor" placeholder="previousDoctor" class="form-control" type="text">
+										</spring:bind>                                  
+                                  </div>
+                              </div>
+
+                              <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                      Date of Birth<spring:bind path="user.dob">
+									<input type="date" class="form-control" id="dateofbirth"
+									name="dob"
+										placeholder="Dateofbirth">
+									</spring:bind>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                  	<spring:bind path="history.startMonth">
+                                      Initiate Date<input id="startMonth" name="startMonth" placeholder="startMonth" class="form-control" type="date">
+                                  	</spring:bind>
+                                  </div>
+                              </div>
+                             
+                              <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                  	<spring:bind path="history.diseaseType">
+                                    <input id="diseaseType" name="diseaseType" placeholder="diseaseType" class="form-control" type="text">
+                                  	</spring:bind>
+                                  </div>
+                                 
+								<div class="form-group col-md-6">
 								
+								<!-- gender -->
+									<spring:bind path="user.gender">
+									<select name="gender" class="form-control">
+										<option selected>Gender</option>
+										<option value="Male">Male</option>
+										<option value="Female">Female</option>
+										<option value="Transgender"> Transgender </option>
+									</select>
+									</spring:bind>
+								</div>
+                              </div>
+                              <div class="form-row">
 								<div class="form-group col-md-6">
 									<label>Preferred language</label>
 									<div class="checkbox">
 						
-										<label><input name="prefLanguage" type="checkbox" value="English">English</label>
+										<label><input name="prefLanguage" type="checkbox" value="1">English</label>
 									</div>
 									<div class="checkbox">
-										<label><input name="prefLanguage" type="checkbox" value="Marathi">Marathi</label>
+										<label><input name="prefLanguage" type="checkbox" value="3">Marathi</label>
 									</div>
 									<div class="checkbox">
-										<label><input name="prefLanguage" type="checkbox" value="Hindi">Hindi</label>
+										<label><input name="prefLanguage" type="checkbox" value="2">Hindi</label>
 									</div>
 									
 								</div>
@@ -235,7 +272,7 @@
                                   
                                </div>
                                 <div class="form-group col-md-4">
-                                  <button type="button" class="btn btn-primary">Login</button>
+                                  <a href="login_form" class="btn btn-primary">Login</a>
                                </div>
                             </div>
                             </form>
@@ -251,5 +288,24 @@
               <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
             </div>
     </footer>
+     <!-- Ajax -->
+    
+    <script src="https://code.jquery.com/jquery-1.10.2.js"
+	type="text/javascript"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('#inputEmail4').blur(function() {
+			$.ajax({
+				url : 'getEmailAjax',
+				data : {
+					emailId : $('#inputEmail4').val()
+				},
+				success : function(responseText) {
+					$('#ajaxResponse').text(responseText);
+				}
+			});
+		});
+	});
+	</script>
 </body>
 </html>

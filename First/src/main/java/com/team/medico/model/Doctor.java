@@ -25,12 +25,12 @@ public class Doctor {
 	private String licenseImg;
 	@Column(name = "current_post")
 	private String currentPost;
-	@Column(name = "pref_language")
-	private String prefLanguage;
 	@Column(name = "years_of_experience")
 	private String yearsOfExperience;
-	@Column(name = "practice_hours")
-	private String practiceHours;
+	@Column(name = "practice_hours_start")
+	private String practiceHoursStart;
+	@Column(name = "practice_hours_end")
+	private String practiceHoursEnd;
 	@Column(name = "duration")
 	private double duration;
 	@Column(name = "awards")
@@ -44,6 +44,7 @@ public class Doctor {
 	
 	public Doctor() {
 		super();
+		rating = 0;
 	}
 
 	@OneToOne
@@ -98,12 +99,22 @@ public class Doctor {
 		this.currentPost = currentPost;
 	}
 
-	public String getPrefLanguage() {
-		return prefLanguage;
+	
+
+	public String getPracticeHoursStart() {
+		return practiceHoursStart;
 	}
 
-	public void setPrefLanguage(String prefLanguage) {
-		this.prefLanguage = prefLanguage;
+	public void setPracticeHoursStart(String practiceHoursStart) {
+		this.practiceHoursStart = practiceHoursStart;
+	}
+
+	public String getPracticeHoursEnd() {
+		return practiceHoursEnd;
+	}
+
+	public void setPracticeHoursEnd(String practiceHoursEnd) {
+		this.practiceHoursEnd = practiceHoursEnd;
 	}
 
 	public String getYearsOfExperience() {
@@ -114,13 +125,7 @@ public class Doctor {
 		this.yearsOfExperience = yearsOfExperience;
 	}
 
-	public String getPracticeHours() {
-		return practiceHours;
-	}
-
-	public void setPracticeHours(String practiceHours) {
-		this.practiceHours = practiceHours;
-	}
+	
 
 	public double getDuration() {
 		return duration;
@@ -173,12 +178,11 @@ public class Doctor {
 	@Override
 	public String toString() {
 		return "Doctor [emailId=" + emailId + ", degree=" + degree + ", degreeImg=" + degreeImg + ", license=" + license
-				+ ", licenseImg=" + licenseImg + ", currentPost=" + currentPost + ", prefLanguage=" + prefLanguage
-				+ ", yearsOfExperience=" + yearsOfExperience + ", practiceHours=" + practiceHours + ", duration="
-				+ duration + ", awards=" + awards + ", specialization=" + specialization + ", specialTraining="
-				+ specialTraining + ", rating=" + rating + ", user=" + user + "]";
+				+ ", licenseImg=" + licenseImg + ", currentPost=" + currentPost + ", yearsOfExperience="
+				+ yearsOfExperience + ", practiceHoursStart=" + practiceHoursStart + ", practiceHoursEnd="
+				+ practiceHoursEnd + ", duration=" + duration + ", awards=" + awards + ", specialization="
+				+ specialization + ", specialTraining=" + specialTraining + ", rating=" + rating + ", user=" + user
+				+ "]";
 	}
-
-	
 	
 }

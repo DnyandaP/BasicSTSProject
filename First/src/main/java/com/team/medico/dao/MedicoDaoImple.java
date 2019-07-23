@@ -1,6 +1,7 @@
 package com.team.medico.dao;
 
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -10,9 +11,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
+import com.team.medico.model.Doctor;
+import com.team.medico.model.History;
 import com.team.medico.model.Patient;
+import com.team.medico.model.PreferredLanguage;
 import com.team.medico.model.User;
 
 
@@ -71,6 +76,57 @@ public class MedicoDaoImple implements MedicoDao {
 		Transaction tx = session.beginTransaction();
 
 		session.save(user);
+		tx.commit();
+		session.close();
+	}
+
+	//@Scheduled(fixedRate = 5000)
+	public void demoServiceMethod()
+    {
+        System.out.println("Method executed at every 5 seconds. Current time is :: "+ new Date());
+    }
+
+
+
+	@Override
+	public PreferredLanguage getLanguageById(String languageId) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		PreferredLanguage preferredLanguage = (PreferredLanguage)session.get(PreferredLanguage.class,languageId);
+		tx.commit();
+		session.close();
+		return preferredLanguage;
+	}
+	
+	public void savePref(PreferredLanguage preferredLanguage) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		session.save(preferredLanguage);
+		tx.commit();
+		session.close();
+	}
+
+	@Override
+	public void insertDoctor(Doctor doctor, User user) {
+		Session session = this.sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+				
+				session.save(user);
+				session.save(doctor);
+				t.commit();
+				session.close();
+		
+	}
+
+
+
+	@Override
+	public void saveHistory(History history) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		session.save(history);
 		tx.commit();
 		session.close();
 	}
