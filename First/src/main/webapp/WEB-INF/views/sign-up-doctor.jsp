@@ -62,17 +62,17 @@
 						
 						
 						<!-- form starts -->
-						<form action="saveDoctor" method="post">
+						<form action="saveDoctor" enctype="multipart/form-data" method="post">
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="user.userName">
-									<input id="Full Name" name="userName" placeholder="Full Name"
+									<input id="Full Name" name="userName" required="required" placeholder="Full Name"
 										class="form-control" type="text">
 									</spring:bind>
 								</div>
 								<div class="form-group col-md-6">
 									<spring:bind path="user.emailId">
-									<input type="email" name="emailId" pattern=".{8,}" title="8 or more character"
+									<input type="email" name="emailId" pattern=".{8,}" required="required" title="8 or more character"
 										class="form-control" id="inputEmail4" placeholder="Email">
 									</spring:bind>
 								</div>
@@ -81,14 +81,14 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="user.password">
-									<input id="Password" name="password" placeholder="Password"
+									<input id="Password" name="password" required="required" placeholder="Password"
 										pattern=".{8,}" title="8 or more character"
 										class="form-control" type="password">
 									</spring:bind>
 								</div>
 								<div class="form-group col-md-6">
 									<spring:bind path="user.contactNo">
-									<input type="text" name="contactNo" class="form-control" id="Contact"
+									<input type="text" name="contactNo" required="required" class="form-control" id="Contact"
 										pattern=".{10}" title="plaease enter valid number"
 										placeholder="Contact">
 									</spring:bind>
@@ -99,7 +99,7 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="user.gender">
-									<select name="gender" class="form-control">
+									<select name="gender" required="required" class="form-control">
 										<option selected>Gender</option>
 										<option value="Male">Male</option>
 										<option value="Female">Female</option>
@@ -117,7 +117,7 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="user.aadharNo">
-									<input id="Addhar" name="aadharNo" placeholder="Addhar No"
+									<input id="Addhar" name="aadharNo" required="required" placeholder="Addhar No"
 										pattern=".{18}"
 										title="plaease enter valid AdharNo and no space between number"
 										class="form-control" type="number">
@@ -135,28 +135,40 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="doctor.degree">
-									<input id="Degree" name="degree" placeholder="Degree"
-										class="form-control"  type="text"><!-- required removed required="required" -->
+							<select id="inputState" name="specialization" required="required" class="form-control">
+                                                <option selected>Degree</option>
+                                                <option value="Bachelor of Medicine,Bachelor of surgery(MBBS)">Bachelor of Medicine,Bachelor of surgery(MBBS) </option>
+                                                <option value="Bachelor of Dental Surgery(BDS)"> Bachelor of Dental Surgery(BDS)</option>
+                                        		<option value=" Bachelor of Ayurvedic Medicine and Surgery(BAMS)">  Bachelor of Ayurvedic Medicine and Surgery(BAMS) </option>
+                                                <option value="Bachelor of Unani Medicine and Surgery(BUMS)"> Bachelor of Unani Medicine and Surgery(BUMS)Hematologists </option>
+                                                <option value="Bachelor of Homeopathy Medicine and Surgery(BHMS)"> Bachelor of Homeopathy Medicine and Surgery(BHMS) </option>
+                                                <option value="Doctor of Medicine (MD)"> Doctor of Medicine (MD) </option>
+                                                <option value="Masters of Surgery (MS)"> Masters of Surgery (MS) </option>
+                                                <option value="Diplomate of National Board(DNB)"> Diplomate of National Board(DNB) </option>
+                                                <option value="Doctor of Osteopathic Medicine(DO)"> Doctor of Osteopathic Medicine(DO)Allergists/Immunologists </option>
+                                                <option value="Doctor of Surgery(DS)"> Doctor of Surgery(DS) </option>
+                                                <option value="Other"> Other </option>
+                                              </select><!-- required removed required="required" -->
 									</spring:bind>
 								</div>
 								<div class="form-group col-md-6">
-									<spring:bind path="doctor.degreeImg">
-									<input id="DegreeImg" name="degreeImg" placeholder="Degree"
-										class="form-control"  type="file"><!-- required removed required="required" -->
+									<spring:bind path="uploadFile.fileDegree">
+									<input id="DegreeImg" name="fileDegree"  required="required" placeholder="Degree"
+										class="form-control"  type="file"><!-- changed  from file to text required removed required="required" -->
 									</spring:bind>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="doctor.license">
-									<input id="License" name="license" placeholder="License"
+									<input id="License" name="license" required="required" placeholder="License"
 										class="form-control"  type="text"><!-- required removed required="required" -->
 									</spring:bind>
 								</div>
 								<div class="form-group col-md-6">
-									<spring:bind path="doctor.licenseImg">
-									<input id="LicenseImg" name="licenseImg" placeholder="License"
-										class="form-control" type="file">
+									<spring:bind path="uploadFile.fileLicense">
+									<input id="LicenseImg" name="fileLicense" required="required" placeholder="License"
+										class="form-control" type="file"><!-- changed  from file to text required removed required="required" -->
 									</spring:bind>
 								</div>
 							</div>
@@ -166,13 +178,13 @@
 									<spring:bind path="doctor.yearsOfExperience">
 									<input id="YearsOfExp" name="yearsOfExperience"
 										placeholder="Year of Experince" class="form-control"
-										type="text">
+										type="number">
 									</spring:bind>
 								</div>
 								<div class="form-group col-md-3">
 									Practice Hours
 									<spring:bind path="doctor.practiceHoursStart">
-									<input id="ParcticeHours" name="practiceHoursStart"
+									<input id="ParcticeHours" required="required" name="practiceHoursStart"
 										placeholder="Parctice Hours" class="form-control" type="time">
 									</spring:bind>
 								</div>
@@ -180,7 +192,7 @@
 									<br/>
 									<spring:bind path="doctor.practiceHoursEnd">
 									<input id="ParcticeHours" name="practiceHoursEnd"
-										placeholder="Parctice Hours" class="form-control" type="time">
+										placeholder="Parctice Hours" required="required" class="form-control" type="time">
 									</spring:bind>
 								</div>
 							</div>
@@ -188,16 +200,21 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="doctor.specialization">
-									<select id="inputState" name="specialization" class="form-control">
+									<select id="inputState" name="specialization" required="required" class="form-control">
                                                 <option selected>Specialization</option>
-                                                <option value="A+"> A+ </option>
-                                                <option value="A-"> A- </option>
-                                                <option value="AB+"> AB+ </option>
-                                                <option value="AB-"> AB- </option>
-                                                <option value="B+"> B+ </option>
-                                                <option value="B-"> B- </option>
-                                                <option value="O+"> O+ </option>
-                                                <option value="O-"> O- </option>
+                                                <option value="Dermatologists">Dermatologists </option>
+                                                <option value="Family Physicians"> Family Physicians</option>
+                                        		<option value="Gastroenterologists"> Gastroenterologists </option>
+                                                <option value="Hematologists"> Hematologists </option>
+                                                <option value="Neurologists"> Neurologists </option>
+                                                <option value="Rheumatologists"> Rheumatologists </option>
+                                                <option value="Urologists"> Urologists </option>
+                                                <option value="Anesthesiologists"> Anesthesiologists </option>
+                                                <option value="Allergists/Immunologists"> Allergists/Immunologists </option>
+                                                <option value="Cardiologists"> Cardiologists </option>
+                                                <option value="Obstetricians"> Obstetricians </option>
+                                                <option value="Gynecologists">Gynecologists </option>
+                                                 <option value="Psychiatrists">Psychiatrists </option>
                                                 <option value="Other"> Other </option>
                                               </select>
 									</spring:bind>
@@ -209,10 +226,14 @@
 									</spring:bind>
 								</div>
 							</div>
+							
+							
+							
+							
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="doctor.duration">
-									<input id="Duration" name="duration" placeholder="Duration"
+									<input id="Duration" required="required" name="duration" placeholder="Duration"
 										class="form-control" type="number">
 									</spring:bind>
 								</div>
@@ -220,7 +241,7 @@
 									<spring:bind path="doctor.specialTraining">
 									<input id="SpecialTraning" name="specialTraining"
 										placeholder="SpecialTraning" class="form-control"
-										required="required" type="text">
+										 type="text"><!-- required removed -->
 									</spring:bind>
 								</div>
 							</div>
@@ -258,9 +279,6 @@
 
 								</div>
 							</div>
-							<input id="DegreeImg" name="file" placeholder="Degree"
-										class="form-control"  type="file"> <!-- test -->
-
 							<div class="form-row">
 								<div class="form-group col-md-4">
 									<input type="submit" value="Sign Up" class="btn btn-danger">

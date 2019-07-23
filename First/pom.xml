@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.team</groupId>
+	<modelVersion>4.0.0</modelVersion> 
+	<groupId>com.team</groupId> 
 	<artifactId>medico</artifactId>
 	<name>First</name> 
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.6</java-version>
-		<spring.version>4.3.20.RELEASE</spring.version>
+		<spring.version>4.3.20.RELEASE</spring.version> 
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<hibernate.version>4.3.0.Final</hibernate.version>
@@ -193,6 +193,19 @@
     	<artifactId>hibernate-infinispan</artifactId>
     	<version>${hibernate.version}</version>
 	</dependency> 
+	<!-- Apache Commons Upload -->  
+        <dependency>  
+            <groupId>commons-fileupload</groupId>  
+            <artifactId>commons-fileupload</artifactId>  
+            <version>1.4</version>  
+        </dependency>  
+  
+        <!-- Apache Commons Upload -->  
+        <dependency>  
+            <groupId>commons-io</groupId>  
+            <artifactId>commons-io</artifactId>  
+            <version>2.6</version>  
+        </dependency>  
 	
 	<!-- mysql -->
 	<dependency>

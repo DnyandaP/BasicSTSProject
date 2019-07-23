@@ -1,5 +1,6 @@
 package com.team.medico.configuration;
 
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class ServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -18,5 +19,7 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
 	protected Class<?>[] getRootConfigClasses() {
 		return null;
 	}
+	
+	
 
 }

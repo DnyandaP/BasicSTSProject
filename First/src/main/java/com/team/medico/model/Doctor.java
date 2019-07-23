@@ -37,6 +37,8 @@ public class Doctor {
 	private String awards;
 	@Column(name = "specialization")
 	private String specialization;
+	@Column(name = "status")
+	private String status;
 	@Column(name = "special_training ")
 	private String specialTraining;
 	@Column(name="rating")

@@ -64,7 +64,7 @@
                                 <!-- user name -->
                                     <div class="form-group col-md-6">
                                       <spring:bind path="user.userName">
-									<input id="Full Name" name="userName" placeholder="Full Name"
+									<input id="Full Name" required="required" name="userName" placeholder="Full Name"
 										class="form-control" type="text">
 									</spring:bind>
                                     </div>
@@ -72,7 +72,7 @@
                                     
                                     <!-- Email Id -->
                                       <spring:bind path="user.emailId">
-									<input type="email" name="emailId"  pattern=".{8,}" title="8 or more character"
+									<input type="email" name="emailId" required="required"  pattern=".{8,}" title="8 or more character"
 										class="form-control" id="inputEmail4" placeholder="Email">
 									</spring:bind>
 									<!-- ajax response -->
@@ -85,7 +85,7 @@
                                     
                                     <!-- Password -->
                                      <spring:bind path="user.password">
-									<input id="Password" name="password" placeholder="Password"
+									<input id="Password" name="password" required="required" placeholder="Password"
 										pattern=".{8,}" title="8 or more character"
 										class="form-control" type="password">
 									</spring:bind>
@@ -94,7 +94,7 @@
                                     
                                     <!-- aadhar -->
                                      <spring:bind path="user.aadharNo">
-									<input id="Addhar" name="aadharNo" placeholder="Addhar No"
+									<input id="Addhar" name="aadharNo" required="required" placeholder="Addhar No"
 										pattern=".{18}"
 										title="plaease enter valid AdharNo and no space between number"
 										class="form-control" type="number">
@@ -111,7 +111,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                     		<spring:bind path="patient.bloodGroup">
-                                              <select id="inputState" name="bloodGroup" class="form-control">
+                                              <select id="inputState" name="bloodGroup" required="required" class="form-control">
                                                 <option selected>Blood Group</option>
                                                 <option value="A+"> A+ </option>
                                                 <option value="A-"> A- </option>
@@ -136,7 +136,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                              <spring:bind path="patient.relationshipWithPatient">
-                                              <select id="inputState" name="relationshipWithPatient" class="form-control">
+                                              <select id="inputState" name="relationshipWithPatient" required="required" class="form-control">
                                                 <option selected>Relationship With Patient</option>
                                                 <option value="Son"> Son </option>
                                                 <option value="Daughter"> Daughter  </option>
@@ -151,7 +151,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                     	 <spring:bind path="patient.maritalStatus">
-                                        <select id="MaritialStatus" name="maritalStatus" class="form-control">
+                                        <select id="MaritialStatus" name="maritalStatus" required="required" class="form-control">
                                             <option selected>Maritial Status</option>
                                             <option value="Married"> Married </option>
                                             <option value="UnMarried"> UnMarried </option>
@@ -161,7 +161,7 @@
                                     <div class="form-group col-md-6">
                                           
                                           <spring:bind path="patient.diet">
-                                          <select id="inputState" name="diet" class="form-control">
+                                          <select id="inputState" name="diet" required="required" class="form-control">
                                             <option selected>Diet</option>
                                             <option value="vegan"> Vegan </option>
                                             <option value="Vegetarian"> Vegetarian  </option>
@@ -180,7 +180,7 @@
                                   <div class="form-group col-md-6">
                                   
                                       <spring:bind path="user.contactNo">
-									<input type="text" name="contactNo" class="form-control" id="Contact"
+									<input type="text" name="contactNo" class="form-control" required="required" id="Contact"
 										pattern=".{10}" title="plaease enter valid number"
 										placeholder="Contact">
 									</spring:bind>
