@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
+import com.team.medico.model.Admin;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
@@ -129,6 +130,21 @@ public class MedicoDaoImple implements MedicoDao {
 		session.save(history);
 		tx.commit();
 		session.close();
+	}
+
+
+
+
+
+	@Override
+	public void saveAdmin(Admin admin) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		session.save(admin);
+		tx.commit();
+		session.close();
+		
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.team.medico.dao;
 
+import com.team.medico.model.Admin;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
@@ -17,5 +18,6 @@ public interface MedicoDao {
 	public PreferredLanguage getLanguageById(String languageId);
 	public void saveHistory(History history);
 	public void insertDoctor(Doctor doctor,User user);
+	public void saveAdmin(Admin admin);
 }
 

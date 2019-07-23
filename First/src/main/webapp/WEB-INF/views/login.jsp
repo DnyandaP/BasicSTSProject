@@ -8,11 +8,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Foam</title>
+    <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</head>
+	<!-- Custom styles for this template -->
+  <link href="${pageContext.request.contextPath}/resources/css/modern-business.css" rel="stylesheet">
+  </head>
 <body>
     
     <!--navbar-->
@@ -24,13 +24,18 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                    <a class="nav-link" href="signup.html">Sign Up</a>
-                  </li> 
-                  <li class="nav-item">
-                    <a class="nav-link" href="login_form">Login</a>
-                  </li> 
-                </ul>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Sign Up</a>
+                    <div class="dropdown-menu">
+                        <a href="signUpDoctor" class="dropdown-item">Doctor</a>
+                        <a href="signUpPatient" class="dropdown-item">Patient</a>
+                        <a href="signUpAdmin" class="dropdown-item">Admin</a>
+                    </div>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="login_form">Login</a>
+          </li> 
+        </ul>
               </div>
             </div>
           </nav>
@@ -108,6 +113,11 @@
 		});
 	});
 	</script>
+ <!-- Bootstrap core JavaScript -->
+
+  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+  
+  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

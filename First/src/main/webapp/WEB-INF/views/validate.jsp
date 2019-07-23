@@ -4,7 +4,9 @@
 	User user  = (User)session.getAttribute("user");
 	if(user.getUserType().equals("patient")){
 		response.sendRedirect("welcome");
-	}else{
+	}else if(user.getUserType().equals("doctor")){
  		response.sendRedirect("welcomeDoctor");
+	}else{
+		response.sendRedirect("welcomeAdmin");
 	}
 %>

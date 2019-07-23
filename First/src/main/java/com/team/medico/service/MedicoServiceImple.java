@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.team.medico.dao.MedicoDao;
+import com.team.medico.model.Admin;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
@@ -48,6 +49,13 @@ public class MedicoServiceImple implements MedicoService {
 	@Override
 	public PreferredLanguage getLanguage(String languageId) {
 		return medDao.getLanguageById(languageId);
+		
+	}
+
+	@Override
+	public void insertAdmin(Admin admin, User user) {
+		medDao.saveUser(user);
+		medDao.saveAdmin(admin);
 		
 	}
 

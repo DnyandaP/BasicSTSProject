@@ -47,6 +47,7 @@ public class Doctor {
 	public Doctor() {
 		super();
 		rating = 0;
+		status= "Pending";
 	}
 
 	@OneToOne
