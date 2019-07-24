@@ -5,7 +5,9 @@
 	if(user.getUserType().equals("patient")){
 		response.sendRedirect("welcome");
 	}else if(user.getUserType().equals("doctor")){
- 		response.sendRedirect("welcomeDoctor");
+		//session.setAttribute("emailId", user.getEmailId());
+		response.sendRedirect("welcomeDoctor");
+ 		
 	}else{
 		response.sendRedirect("welcomeAdmin");
 	}

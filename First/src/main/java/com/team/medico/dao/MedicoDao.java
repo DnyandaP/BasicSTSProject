@@ -15,9 +15,13 @@ public interface MedicoDao {
 	//public List<User> getAll() ;
 	public boolean validateUser(final User user);
 	public User getUserByEmailId(String emailId);
+	public boolean aadharExist(double aadhar);
+	public boolean contactExist(String contact);
 	public PreferredLanguage getLanguageById(String languageId);
 	public void saveHistory(History history);
 	public void insertDoctor(Doctor doctor,User user);
 	public void saveAdmin(Admin admin);
+	public Doctor getDoctorByEmailId(String emailId);
+	
 }
 

@@ -21,10 +21,18 @@ public interface MedicoService {
 	public User getUser(String emailId);
 
 	public void insertPatient(Patient patient, User user, History history);
+	
+	public void insertPatientSignUp(User user );
+	
+	public boolean aadharExist(double aadhar);
+	public boolean contactExist(String contact);
+	
 
 	public PreferredLanguage getLanguage(String languageId);
 
 	public void insertDoctor(Doctor doctor, User user);
 
 	public void insertAdmin(Admin admin, User user);
+	
+	public Doctor doctorByEmailId(String emailId);
 }

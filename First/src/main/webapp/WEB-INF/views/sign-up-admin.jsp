@@ -49,8 +49,9 @@
                         <div class="col-md-4 py-5 bg-primary text-white text-center ">
                             <div class=" ">
                                 <div class="card-body">
-                                    <img src="https://lh3.googleusercontent.com/8g540BSYIHps3dUywQU09dTIOs2NNLme7Pg0tUjI6KnNm2VYCVFDI_nWZ_FmNboZj4fBucya-dGY2TNjxROMh7xIOAXKQ811bEnpRlcbKB8mBsgdx0EfDFHoXRktIwudg993_XXah7VabMqYFkNmGoR_1PBK5StKHgl0eUPIWdcBmZJfuCOwxFH9g5I0t9f49TRDqsL19s3SNLr8WSgaa2QB8yB98tNp102R4Th6QjNG7IBT0lGv6hDKlO_SSf9zOWcW9bm29CZHczzjH3SCr6hmbu6S9oYR_Hzdl5LVcrNrFEq2URfPA56ZnDKj2KgOVfJSnB8l91X3e-JG39Os3Zb_r7qrxDiS6h-q780sotQGPkg53VIRhusntEP4qqg1WwjWBuDwc1mXj9X-mcSuaOtbca3uztKFFjPBV2FdjCEAbSynCqFZqhNbhlqTaEUs3WG8fxOrkGC6HAV7SnmRIX74n9cUCCwnq79WXz2VwpIfL3nBAtB_ale6Oc_Y5YoiKHcyvTDTf-FDvDRmCUWtuVuaNNNXJJxEn7bQ42VwhfuaBDNHr9NyO1o90VthXUaP_VLovVHZYb6X2dmtxlgbQ9m7K35tgyOjPMFiKpWN_HBkTsGvbTSxxhSL1wcZXvSaGRl81Nn-mGMDS-nqIFV1aMuMRZpc9gliAUd8vly8n6bK2-SmelHT6wrkP3KtVsZZDIcaS4_7FIIm7omi1vwJAcQjsQ=w650-h520-no"
+                                    <img src="https://www.google.com/imgres?imgurl=http%3A%2F%2Fpluspng.com%2Fimg-png%2Fpng-hd-doctor-two-doctors-600.png&imgrefurl=http%3A%2F%2Fpluspng.com%2Fpng-hd-doctor-8666.html&docid=HqhuyoA0uatI_M&tbnid=dPX1RVH01H0FOM%3A&vet=10ahUKEwi_u_Wt78zjAhWCNY8KHX9DAQUQMwiNASggMCA..i&w=600&h=315&bih=657&biw=1366&q=doctor%20images%20hd&ved=0ahUKEwi_u_Wt78zjAhWCNY8KHX9DAQUQMwiNASggMCA&iact=mrc&uact=8";
 									style="width: 70%">
+									
                                     
                                     <h2 class="py-3">Sign Up Admin</h2>
                                     <p>Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu, facete detracto patrioque an per, lucilius pertinacia eu vel.
@@ -110,7 +111,7 @@
                                     <div class="form-group col-md-6">
 									<spring:bind path="user.dob">
 									<input type="date" class="form-control" id="dateofbirth"
-									name="dob"
+									name="dob" required="required"
 										placeholder="Dateofbirth">
 									</spring:bind>                                    
 									</div>

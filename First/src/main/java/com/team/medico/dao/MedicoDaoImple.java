@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 
 import com.team.medico.model.Admin;
@@ -35,25 +36,23 @@ public class MedicoDaoImple implements MedicoDao {
     }
     
 	
-	
-
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean validateUser(User user) {
+		
+		System.out.println(user.getPassword());
 		Session session = this.sessionFactory.openSession();
-		Query q = session.createQuery("from User where emailId = ? and password = ?");
-		q.setString(0, user.getEmailId());
-		q.setString(1, user.getPassword());
-		List<User> userList = q.list();
+		User user1 = (User)session.get(User.class,user.getEmailId());
 		session.close();
-		if(!userList.isEmpty()) {
+		
+		if (BCrypt.checkpw(user.getPassword(), user1.getPassword())) {
 			return true;
 		}
 		return false;
 	}
 	
-	//@SuppressWarnings("unchecked")
+	
 	@Override
 	public User getUserByEmailId(String emailId) {
 		Session session = this.sessionFactory.openSession();
@@ -75,7 +74,6 @@ public class MedicoDaoImple implements MedicoDao {
 	public void saveUser(final User user) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-
 		session.save(user);
 		tx.commit();
 		session.close();
@@ -102,7 +100,6 @@ public class MedicoDaoImple implements MedicoDao {
 	public void savePref(PreferredLanguage preferredLanguage) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-
 		session.save(preferredLanguage);
 		tx.commit();
 		session.close();
@@ -126,7 +123,6 @@ public class MedicoDaoImple implements MedicoDao {
 	public void saveHistory(History history) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-
 		session.save(history);
 		tx.commit();
 		session.close();
@@ -145,6 +141,46 @@ public class MedicoDaoImple implements MedicoDao {
 		tx.commit();
 		session.close();
 		
+	}
+
+
+
+	@Override
+	public Doctor getDoctorByEmailId(String emailId) {
+		Session session = this.sessionFactory.openSession();
+		Doctor doctor = (Doctor)session.get(Doctor.class,emailId);
+		session.close();
+		return doctor;
+	}
+
+
+
+	@Override
+	public boolean aadharExist(double aadhar) {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from User where aadhar = ?");
+		q.setDouble(0, aadhar);
+		List<User> userList = q.list();
+		session.close();
+		if(!userList.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+
+
+
+	@Override
+	public boolean contactExist(String contact) {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from User where contactNo = ?");
+		q.setString(0, contact);
+		List<User> userList = q.list();
+		session.close();
+		if(!userList.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 
 }
@@ -167,9 +203,9 @@ public class MedicoDaoImple implements MedicoDao {
 //		Transaction tx = session.getTransaction();
 //		
 //				Query q = session.createQuery("from User where userName = ? and password = ?");
-//				q.setString(0, user.getUserName());
-//				q.setString(1, user.getPassword());
-//				List<User> userList = q.list();
+//q.setString(0, user.getUserName());
+//q.setString(1, user.getPassword());
+//List<User> userList = q.list();
 //				if(!tx.wasCommitted()) {
 //				tx.commit();
 //				}

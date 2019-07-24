@@ -9,9 +9,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,19 +25,30 @@ import com.team.medico.model.Doctor;
 import com.team.medico.model.PreferredLanguage;
 import com.team.medico.model.UploadedFile;
 import com.team.medico.model.User;
+import com.team.medico.service.EmailServiceImple;
 import com.team.medico.service.MedicoService;
 
 @Controller
 public class DoctorController {
 	
 	@Autowired
-	private MedicoService userService;
+	private MedicoService medService;
+	
+	@Autowired
+	public EmailServiceImple emailService;
 	
 	//doctor profile
-		@RequestMapping(value="/welcomeDoctor")
-		public String welcomeDoctor(User user,ModelMap model) { //redirecting to doctor
-			return "doctor";
+	@RequestMapping(value="/welcomeDoctor")
+	public String welcomeDoctor(ModelMap model,HttpSession session) { //redirecting to doctor
+		User user = (User) session.getAttribute("user");
+		System.out.println("hello");
+		Doctor doctor = medService.doctorByEmailId(user.getEmailId());
+		System.out.println(doctor.getStatus());
+		if(doctor.getStatus().equals("Pending")) {
+			return "pending";
 		}
+		return "doctor";
+	}
 		
 		
 		@RequestMapping(value="/signUpDoctor")
@@ -59,8 +75,8 @@ public class DoctorController {
 			  String fileNameLicense = fileLicense.getOriginalFilename();
 			  String fileNameDegree = fileDegree.getOriginalFilename();
 			 
-			  String pathLicense = "D:\\Medico\\"+user.getContactNo().toString()+"o"+fileNameLicense;
-			  String pathDegree = "D:\\Medico\\"+user.getContactNo().toString()+"o"+fileNameDegree;
+			  String pathLicense = "D:\\Medico\\"+user.getContactNo().toString()+"-license-"+fileNameLicense;
+			  String pathDegree = "D:\\Medico\\"+user.getContactNo().toString()+"-degree-"+fileNameDegree;
 			  doctor.setDegreeImg(pathDegree);
 			  doctor.setLicenseImg(pathLicense);
 			
@@ -94,31 +110,19 @@ public class DoctorController {
 			
 			Set<PreferredLanguage> preferredLanguage = new HashSet<PreferredLanguage>();
 			for(String items : pl){
-				preferredLanguage.add(userService.getLanguage(items));//fecthing from database
+				preferredLanguage.add(medService.getLanguage(items));//fecthing from database
 			}
 			user.setPreferredLanguage(preferredLanguage);//adding to particular doctor
 			user.setUserType("doctor");
+			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+			medService.insertDoctor(doctor,user);
+			emailService.sendSimpleMessage(user.getEmailId(), "Welcome To Medico", "Thank you for registering");
+			
 			model.put("user", new User());
 			model.put("doctor",new Doctor());
-			userService.insertDoctor(doctor,user);
+			
+			
 			return "login";
 
 		}
-
-//		@RequestMapping(value="/saveDoctor")
-//		public String saveDoctor(@RequestParam(name = "prefLanguage")List<String> pl, Doctor doctor,User user,ModelMap model) {
-//						
-//			
-//			Set<PreferredLanguage> preferredLanguage = new HashSet<PreferredLanguage>();
-//			for(String items : pl){
-//				preferredLanguage.add(userService.getLanguage(items));//fecthing from database
-//			}
-//			user.setPreferredLanguage(preferredLanguage);//adding to particular doctor
-//			user.setUserType("doctor");
-//			model.put("user", new User());
-//			model.put("doctor",new Doctor());
-//			userService.insertDoctor(doctor,user);
-//			return "login";
-//		}
-
 }

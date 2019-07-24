@@ -29,7 +29,6 @@
                     <div class="dropdown-menu">
                         <a href="signUpDoctor" class="dropdown-item">Doctor</a>
                         <a href="signUpPatient" class="dropdown-item">Patient</a>
-                        <a href="signUpAdmin" class="dropdown-item">Admin</a>
                     </div>
           </li> 
           <li class="nav-item">
@@ -64,12 +63,14 @@
                                         <div class="form-group col-md-12">
                                         
                                         <spring:message text="Email Address" var='emailIdPlace' />
+                                        <h4>Email Address</h4>
                                           <form:input path="emailId" class="form-control" id="inputEmail4" placeholder="${emailIdPlace}"/>
                                      		<!-- ajax response -->
                                      		<div id="ajaxResponse" style="color:red"></div>
                                         </div>
                                         <div class="form-group col-md-12">
                                        <spring:message text="Password" var='passwordPlace' />
+                                       		<h4>Password</h4>
                                           <form:password path="password" class="form-control"  placeholder="${passwordPlace}"/>
                                         </div>
                                       </div>

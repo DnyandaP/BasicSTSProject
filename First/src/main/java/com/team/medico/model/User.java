@@ -35,7 +35,7 @@ public class User {
 //	@Temporal(TemporalType.DATE)
 	private String dob;
 	@Column(name = "is_active")
-	private String isActive;
+	private boolean isActive;
 	@Column(name = "type_of_user")
 	private String userType;
 	
@@ -47,7 +47,7 @@ public class User {
 
 	public User() {
 		super();
-		isActive="Active";
+		isActive=true;
 // TODO Auto-generated constructor stub
 	}
 
@@ -115,7 +115,7 @@ public class User {
 		this.dob = dob;
 	}
 
-	public String getIsActive() {
+	public boolean getIsActive() {
 		return isActive;
 	}
 

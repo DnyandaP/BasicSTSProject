@@ -27,8 +27,7 @@
                     <div class="dropdown-menu">
                         <a href="signUpDoctor" class="dropdown-item">Doctor</a>
                         <a href="signUpPatient" class="dropdown-item">Patient</a>
-                        <a href="signUpAdmin" class="dropdown-item">Admin</a>
-                    </div>
+                     </div>
           </li> 
           <li class="nav-item">
             <a class="nav-link" href="login_form">Login</a>
@@ -50,7 +49,7 @@
                                     <img src="https://lh3.googleusercontent.com/8g540BSYIHps3dUywQU09dTIOs2NNLme7Pg0tUjI6KnNm2VYCVFDI_nWZ_FmNboZj4fBucya-dGY2TNjxROMh7xIOAXKQ811bEnpRlcbKB8mBsgdx0EfDFHoXRktIwudg993_XXah7VabMqYFkNmGoR_1PBK5StKHgl0eUPIWdcBmZJfuCOwxFH9g5I0t9f49TRDqsL19s3SNLr8WSgaa2QB8yB98tNp102R4Th6QjNG7IBT0lGv6hDKlO_SSf9zOWcW9bm29CZHczzjH3SCr6hmbu6S9oYR_Hzdl5LVcrNrFEq2URfPA56ZnDKj2KgOVfJSnB8l91X3e-JG39Os3Zb_r7qrxDiS6h-q780sotQGPkg53VIRhusntEP4qqg1WwjWBuDwc1mXj9X-mcSuaOtbca3uztKFFjPBV2FdjCEAbSynCqFZqhNbhlqTaEUs3WG8fxOrkGC6HAV7SnmRIX74n9cUCCwnq79WXz2VwpIfL3nBAtB_ale6Oc_Y5YoiKHcyvTDTf-FDvDRmCUWtuVuaNNNXJJxEn7bQ42VwhfuaBDNHr9NyO1o90VthXUaP_VLovVHZYb6X2dmtxlgbQ9m7K35tgyOjPMFiKpWN_HBkTsGvbTSxxhSL1wcZXvSaGRl81Nn-mGMDS-nqIFV1aMuMRZpc9gliAUd8vly8n6bK2-SmelHT6wrkP3KtVsZZDIcaS4_7FIIm7omi1vwJAcQjsQ=w650-h520-no"
 									style="width: 70%">
                                     <h2 class="py-3">Sign Up Patient</h2>
-                                    <p>Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu, facete detracto patrioque an per, lucilius pertinacia eu vel.
+                                    <p>Medico provides you with platform where you get easy access to health related requiremnets and information
           							</p>
                                 </div>
                             </div>
@@ -66,16 +65,16 @@
                                 <!-- user name -->
                                     <div class="form-group col-md-6">
                                       <spring:bind path="user.userName">
-									<input id="Full Name" required="required" name="userName" placeholder="Full Name"
-										class="form-control" type="text">
+									Name<input id="Full Name" required="required" name="userName" placeholder="Full Name"
+										class="form-control" autocomplete="off" type="text">
 									</spring:bind>
                                     </div>
                                     <div class="form-group col-md-6">
                                     
                                     <!-- Email Id -->
                                       <spring:bind path="user.emailId">
-									<input type="email" name="emailId" required="required"  pattern=".{8,}" title="8 or more character"
-										class="form-control" id="inputEmail4" placeholder="Email">
+									Email Id<input type="email" name="emailId" required="required"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="8 or more character"
+										class="form-control" id="inputEmail4" autocomplete="off" placeholder="Email">
 									</spring:bind>
 									<!-- ajax response -->
                                      		<div id="ajaxResponse" style="color:red"></div>
@@ -87,8 +86,8 @@
                                     
                                     <!-- Password -->
                                      <spring:bind path="user.password">
-									<input id="Password" name="password" required="required" placeholder="Password"
-										pattern=".{8,}" title="8 or more character"
+									Password<input id="Password" name="password" required="required" placeholder="Password"
+										pattern=".{8,}" title="8 or more character" autocomplete="off"
 										class="form-control" type="password">
 									</spring:bind>
                                     </div>
@@ -96,147 +95,52 @@
                                     
                                     <!-- aadhar -->
                                      <spring:bind path="user.aadharNo">
-									<input id="Addhar" name="aadharNo" required="required" placeholder="Addhar No"
-										pattern=".{18}"
-										title="plaease enter valid AdharNo and no space between number"
+									Aadhar no<input id="Aadhar" name="aadharNo" required="required" placeholder="Addhar No"
+										pattern=".{12}"
+										title="plaease enter valid AdharNo and no space between number" autocomplete="off"
 										class="form-control" type="number">
 									</spring:bind>
+									<!-- ajax response -->
+                                     		<div id="ajaxResponse2" style="color:red"></div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                    
-                                    <!-- weight -->
-                                    <spring:bind path="patient.weight">
-                                        <input id="Weight" name="weight" placeholder="weight" class="form-control" required="required" type="number">
-                                    </spring:bind>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                    		<spring:bind path="patient.bloodGroup">
-                                              <select id="inputState" name="bloodGroup" required="required" class="form-control">
-                                                <option selected>Blood Group</option>
-                                                <option value="A+"> A+ </option>
-                                                <option value="A-"> A- </option>
-                                                <option value="AB+"> AB+ </option>
-                                                <option value="AB-"> AB- </option>
-                                                <option value="B+"> B+ </option>
-                                                <option value="B-"> B- </option>
-                                                <option value="O+"> O+ </option>
-                                                <option value="O-"> O- </option>
-                                                <option value="Other"> Other </option>
-                                              </select>
-                                           	 </spring:bind>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                        
-                                        <!-- current medication -->
-                                        <spring:bind path="patient.currentMedication">
-                                          <input id="CurrentMediaction" name="currentMedication" placeholder="Current Mediaction" class="form-control" type="text">
-                                        </spring:bind>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                             <spring:bind path="patient.relationshipWithPatient">
-                                              <select id="inputState" name="relationshipWithPatient" required="required" class="form-control">
-                                                <option selected>Relationship With Patient</option>
-                                                <option value="Son"> Son </option>
-                                                <option value="Daughter"> Daughter  </option>
-                                                <option value="Wife"> Wife </option>
-                                                <option value="Husband"> Husband </option>
-                                                <option value="Self"> Self </option>
-                                                <option value="Other"> Other </option>
-                                              </select>
-                                             </spring:bind>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                    	 <spring:bind path="patient.maritalStatus">
-                                        <select id="MaritialStatus" name="maritalStatus" required="required" class="form-control">
-                                            <option selected>Maritial Status</option>
-                                            <option value="Married"> Married </option>
-                                            <option value="UnMarried"> UnMarried </option>
-                                          </select>
-                                          </spring:bind>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                          
-                                          <spring:bind path="patient.diet">
-                                          <select id="inputState" name="diet" required="required" class="form-control">
-                                            <option selected>Diet</option>
-                                            <option value="vegan"> Vegan </option>
-                                            <option value="Vegetarian"> Vegetarian  </option>
-                                            <option value="Non-Vegetarian"> Non-Vegetarian </option>
-                                            <option value="Other"> Other </option>
-                                          </select>
-                                          </spring:bind>
-                                </div>
-                              </div>
+                                
+                               
+                                
                               <div class="form-row">
+                 
                                   <div class="form-group col-md-6">
-                                  <spring:bind path="patient.occupation">
-                                    <input id="Occupation" name="occupation" placeholder="Occupation" class="form-control" type="text">
-                                   </spring:bind>
-                                  </div>
-                                  <div class="form-group col-md-6">
-                                  
-                                      <spring:bind path="user.contactNo">
-									<input type="text" name="contactNo" class="form-control" required="required" id="Contact"
-										pattern=".{10}" title="plaease enter valid number"
+                                  <spring:bind path="user.contactNo">
+									Contact Number<input type="text" name="contactNo" class="form-control" required="required" id="Contact"
+										pattern="^[6-9]\d{9}$" title="plaease enter valid number" autocomplete="off"
 										placeholder="Contact">
 									</spring:bind>
+									<!-- ajax response -->
+                                     		<div id="ajaxResponse3" style="color:red"></div>
                                     </div>
-                                  </div>
-                                  
-								<div class="form-row">
-                                  <div class="form-group col-md-6">
-                                  	<spring:bind path="history.timePeriodMonths">
-                                    <input id="timePeriodMonths" name="timePeriodMonths" placeholder="timePeriodMonths" class="form-control" type="number">
-                                  	</spring:bind>
-                                  </div>
-                                  <div class="form-group col-md-6">
-                                  	  <spring:bind path="history.previousDoctor">	
-                                      <input id="previousDoctor" name="previousDoctor" placeholder="previousDoctor" class="form-control" type="text">
-										</spring:bind>                                  
-                                  </div>
-                              </div>
-
-                              <div class="form-row">
-                                  <div class="form-group col-md-6">
-                                      Date of Birth<spring:bind path="user.dob">
-									<input type="date" class="form-control" id="dateofbirth"
-									name="dob"
-										placeholder="Dateofbirth">
-									</spring:bind>
-                                  </div>
-                                  <div class="form-group col-md-6">
-                                  	<spring:bind path="history.startMonth">
-                                      Initiate Date<input id="startMonth" name="startMonth" placeholder="startMonth" class="form-control" type="date">
-                                  	</spring:bind>
-                                  </div>
-                              </div>
-                             
-                              <div class="form-row">
-                                  <div class="form-group col-md-6">
-                                  	<spring:bind path="history.diseaseType">
-                                    <input id="diseaseType" name="diseaseType" placeholder="diseaseType" class="form-control" type="text">
-                                  	</spring:bind>
-                                  </div>
-                                 
-								<div class="form-group col-md-6">
-								
-								<!-- gender -->
+                                    <!-- gender -->
+                                    <div class="form-group col-md-6">
 									<spring:bind path="user.gender">
-									<select name="gender" class="form-control">
+									Gender<select name="gender" class="form-control">
 										<option selected>Gender</option>
 										<option value="Male">Male</option>
 										<option value="Female">Female</option>
 										<option value="Transgender"> Transgender </option>
 									</select>
 									</spring:bind>
+									</div>
+                                  </div>
+                            
+                            	<div class="form-row">
+									<div class="form-group col-md-6">
+                                      Date of Birth<spring:bind path="user.dob">
+									<input type="date" class="form-control" id="dateofbirth"
+									name="dob" autocomplete="off"
+										placeholder="Dateofbirth">
+									</spring:bind>
+                                 	</div>
 								</div>
-                              </div>
+               
                               <div class="form-row">
 								<div class="form-group col-md-6">
 									<label>Preferred language</label>
@@ -304,6 +208,32 @@
 				},
 				success : function(responseText) {
 					$('#ajaxResponse').text(responseText);
+				}
+			});
+		});
+	});
+	$(document).ready(function() {
+		$('#Aadhar').blur(function() {
+			$.ajax({
+				url : 'getAadharAjax',
+				data : {
+					aadhar : $('#Aadhar').val()
+				},
+				success : function(responseText) {
+					$('#ajaxResponse2').text(responseText);
+				}
+			});
+		});
+	});
+	$(document).ready(function() {
+		$('#Contact').blur(function() {
+			$.ajax({
+				url : 'getContactAjax',
+				data : {
+					contact : $('#Contact').val()
+				},
+				success : function(responseText) {
+					$('#ajaxResponse3').text(responseText);
 				}
 			});
 		});

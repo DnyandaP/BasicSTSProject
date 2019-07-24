@@ -38,10 +38,10 @@ public class MedicoController {
 	//login page
 	@RequestMapping(value = "/login_form")
 	public String prepLoginForm(ModelMap model,HttpSession session) {
-		if(session.getAttribute("user")!=null) { //if user comes back to login page without logout
-			session.removeAttribute("user");
-			session.invalidate();
-		}
+//		if(session.getAttribute("user")!=null) { //if user comes back to login page without logout
+//			session.removeAttribute("user");
+//			session.invalidate();
+//		}
 		model.put("user", new User());
 		model.put("doctor",new Doctor());
 		model.put("message",""); //so that the div for wrong password can be empty
@@ -55,11 +55,10 @@ public class MedicoController {
 		if(user.getEmailId()!=null) { //if email id is not entered
 			boolean b = userService.checkUser(user);
 			if(b) {
-				//session.setAttribute("user", user);
+			
 				User u1 = userService.getUser(user.getEmailId());//to fetch the data from database about that particular user
 				if(u1!=null) {
 					session.setAttribute("user", u1);
-					System.out.println(u1.getUserType());
 					return "validate";
 				}
 			}
@@ -101,6 +100,24 @@ public class MedicoController {
 		User u1 = userService.getUser(emailId); //we get email id from the ajax call
 		if(u1!=null) {
 			return "Email Address already registered";
+		}
+		return "";
+	}
+	
+	@RequestMapping("/getContactAjax")
+	@ResponseBody
+	public String getContactAjax(@RequestParam String contact) {
+		if(userService.contactExist(contact)) {
+			return "Contact Number already registered";
+		}
+		return "";
+	}
+	
+	@RequestMapping("/getAadharAjax")
+	@ResponseBody
+	public String getAadharAjax(@RequestParam double aadhar) {
+		if(userService.aadharExist(aadhar)) {
+			return "Aadhar Number already registered";
 		}
 		return "";
 	}

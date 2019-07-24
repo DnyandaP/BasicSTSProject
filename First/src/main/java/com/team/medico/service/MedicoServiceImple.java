@@ -32,8 +32,6 @@ public class MedicoServiceImple implements MedicoService {
 	
 	@Override
 	public void insertDoctor(Doctor doctor, User user) {
-		System.out.println(user.getContactNo());
-		System.out.println(doctor.getLicense());
 		medDao.insertDoctor(doctor, user);
 	}
 
@@ -57,6 +55,27 @@ public class MedicoServiceImple implements MedicoService {
 		medDao.saveUser(user);
 		medDao.saveAdmin(admin);
 		
+	}
+
+	@Override
+	public void insertPatientSignUp(User user) {
+		medDao.saveUser(user);
+		
+	}
+
+	@Override
+	public Doctor doctorByEmailId(String emailId) {
+		return medDao.getDoctorByEmailId(emailId);
+	}
+
+	@Override
+	public boolean aadharExist(double aadhar) {
+		return medDao.aadharExist(aadhar);
+	}
+
+	@Override
+	public boolean contactExist(String contact) {
+		return medDao.contactExist(contact);
 	}
 
 	

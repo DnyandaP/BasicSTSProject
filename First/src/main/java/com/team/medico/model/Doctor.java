@@ -31,16 +31,12 @@ public class Doctor {
 	private String practiceHoursStart;
 	@Column(name = "practice_hours_end")
 	private String practiceHoursEnd;
-	@Column(name = "duration")
-	private double duration;
 	@Column(name = "awards")
 	private String awards;
 	@Column(name = "specialization")
 	private String specialization;
 	@Column(name = "status")
 	private String status;
-	@Column(name = "special_training ")
-	private String specialTraining;
 	@Column(name="rating")
 	private double rating;
 	
@@ -48,6 +44,14 @@ public class Doctor {
 		super();
 		rating = 0;
 		status= "Pending";
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@OneToOne
@@ -128,16 +132,6 @@ public class Doctor {
 		this.yearsOfExperience = yearsOfExperience;
 	}
 
-	
-
-	public double getDuration() {
-		return duration;
-	}
-
-	public void setDuration(double duration) {
-		this.duration = duration;
-	}
-
 	public String getAwards() {
 		return awards;
 	}
@@ -152,14 +146,6 @@ public class Doctor {
 
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
-	}
-
-	public String getSpecialTraining() {
-		return specialTraining;
-	}
-
-	public void setSpecialTraining(String specialTraining) {
-		this.specialTraining = specialTraining;
 	}
 
 	public double getRating() {
@@ -183,8 +169,8 @@ public class Doctor {
 		return "Doctor [emailId=" + emailId + ", degree=" + degree + ", degreeImg=" + degreeImg + ", license=" + license
 				+ ", licenseImg=" + licenseImg + ", currentPost=" + currentPost + ", yearsOfExperience="
 				+ yearsOfExperience + ", practiceHoursStart=" + practiceHoursStart + ", practiceHoursEnd="
-				+ practiceHoursEnd + ", duration=" + duration + ", awards=" + awards + ", specialization="
-				+ specialization + ", specialTraining=" + specialTraining + ", rating=" + rating + ", user=" + user
+				+ practiceHoursEnd + ",  awards=" + awards + ", specialization="
+				+ specialization +  ", rating=" + rating + ", user=" + user
 				+ "]";
 	}
 	

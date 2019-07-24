@@ -33,7 +33,6 @@
                     <div class="dropdown-menu">
                         <a href="signUpDoctor" class="dropdown-item">Doctor</a>
                         <a href="signUpPatient" class="dropdown-item">Patient</a>
-                        <a href="signUpAdmin" class="dropdown-item">Admin</a>
                     </div>
           </li> 
           <li class="nav-item">
@@ -53,13 +52,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="https://storage.googleapis.com/ehimages/2018/3/10/img_73c7a5b3a53146aacf5a9bcf213e7842_1520684895580_original.jpg"  alt="First slide">
+      <img class="d-block w-100" src="<c:url value="/resources/images/silde1.jpg" />"  alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="..." alt="Second slide">
+      <img class="d-block w-100 col-lg-12" src="<c:url value="/resources/images/silde4.jpg" />" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="..." alt="Third slide">
+      <img class="d-block w-100" src="<c:url value="/resources/images/silde3.jpg" />" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
