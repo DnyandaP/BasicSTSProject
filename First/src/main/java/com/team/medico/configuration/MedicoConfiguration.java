@@ -3,11 +3,12 @@ package com.team.medico.configuration;
 
 import java.util.Properties;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -24,7 +25,6 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @EnableScheduling
 @ComponentScan(basePackages = "com.team.medico")
-
 public class MedicoConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -73,6 +73,13 @@ public class MedicoConfiguration extends WebMvcConfigurerAdapter {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setText("This is the test email template for your email:\n%s\n");
         return message;
+    }
+	
+	@Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("messages");
+        return messageSource;
     }
 	
 	}

@@ -41,7 +41,6 @@ public class DoctorController {
 	@RequestMapping(value="/welcomeDoctor")
 	public String welcomeDoctor(ModelMap model,HttpSession session) { //redirecting to doctor
 		User user = (User) session.getAttribute("user");
-		System.out.println("hello");
 		Doctor doctor = medService.doctorByEmailId(user.getEmailId());
 		System.out.println(doctor.getStatus());
 		if(doctor.getStatus().equals("Pending")) {
@@ -74,7 +73,6 @@ public class DoctorController {
 			    
 			  String fileNameLicense = fileLicense.getOriginalFilename();
 			  String fileNameDegree = fileDegree.getOriginalFilename();
-			 
 			  String pathLicense = "D:\\Medico\\"+user.getContactNo().toString()+"-license-"+fileNameLicense;
 			  String pathDegree = "D:\\Medico\\"+user.getContactNo().toString()+"-degree-"+fileNameDegree;
 			  doctor.setDegreeImg(pathDegree);

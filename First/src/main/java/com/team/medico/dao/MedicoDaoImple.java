@@ -20,6 +20,7 @@ import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Timeslot;
 import com.team.medico.model.User;
 
 
@@ -79,13 +80,40 @@ public class MedicoDaoImple implements MedicoDao {
 		session.close();
 	}
 
-	//@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 155000)
 	public void demoServiceMethod()
     {
-        System.out.println("Method executed at every 5 seconds. Current time is :: "+ new Date());
+        long millis=System.currentTimeMillis();  //current date 
+        
+		List<Doctor> docList = getApprovedDoctor();//fetching all approved doctor
+		if (docList != null) {
+			for (Doctor doc : docList) {
+
+				String strTime = doc.getPracticeHoursStart(); // cal the time slots
+				String endTime = doc.getPracticeHoursEnd();
+				String[] arrOfStr = strTime.split(":", 2);
+				int str = Integer.parseInt(arrOfStr[0]);
+				String[] arrOfStr1 = endTime.split(":", 2);
+				int end = Integer.parseInt(arrOfStr1[0]);
+				while (str < end) { //inserting each time slots to db
+					String str1 = str + ":" + arrOfStr[1];
+					str++;
+					String str2 = str + ":" + arrOfStr[1];
+					Timeslot ts = new Timeslot(doc.getEmailId(), str1, str2, new java.sql.Date(millis), "booked", doc);
+					Session session = this.sessionFactory.openSession();
+					Transaction tx = session.beginTransaction();
+
+					session.save(ts);
+					tx.commit();
+					session.close();
+				}
+        		
+        	}
+        }
+       
     }
 
-
+	
 
 	@Override
 	public PreferredLanguage getLanguageById(String languageId) {
@@ -181,6 +209,28 @@ public class MedicoDaoImple implements MedicoDao {
 			return true;
 		}
 		return false;
+	}
+
+
+
+	@Override
+	public Patient getPatientByEmailId(String emailId) {
+		Session session = this.sessionFactory.openSession();
+		Patient patient = (Patient)session.get(Patient.class,emailId);
+		session.close();
+		return patient;
+	}
+
+
+
+	@Override
+	public List<Doctor> getApprovedDoctor() {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from Doctor where status = ?");
+		q.setString(0, "Approved");
+		List<Doctor> docList = q.list();
+		session.close();
+		return docList;
 	}
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ page errorPage="error.jsp" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -162,7 +163,7 @@
 								</div>
 								<div class="form-group col-md-6">
 									<spring:bind path="uploadFile.fileDegree">
-									Degree Image<input id="DegreeImg" name="fileDegree"  required="required" placeholder="Degree"
+									Degree Image<input id="DegreeImg" name="fileDegree"  accept="image/*" required="required" placeholder="Degree"
 										class="form-control" autocomplete="off" type="file"><!-- changed  from file to text required removed required="required" -->
 									</spring:bind>
 								</div>
@@ -176,7 +177,7 @@
 								</div>
 								<div class="form-group col-md-6">
 									<spring:bind path="uploadFile.fileLicense">
-									License Image<input id="LicenseImg" name="fileLicense" required="required" placeholder="License"
+									License Image<input id="LicenseImg" name="fileLicense" accept="image/*" required="required" placeholder="License"
 										class="form-control" autocomplete="off" type="file"><!-- changed  from file to text required removed required="required" -->
 									</spring:bind>
 								</div>

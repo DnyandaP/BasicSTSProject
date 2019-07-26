@@ -11,8 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+
 
 @Entity
 @Table(name = "user")
@@ -20,6 +22,8 @@ public class User {
 
 	@Column(name = "user_name")
 	private String userName;
+	@NotEmpty
+	@Pattern(regexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]{2,5}", message = "Please provide a valid email address")
 	@Id
 	@Column(name = "email_id")
 	private String emailId;
@@ -38,16 +42,15 @@ public class User {
 	private boolean isActive;
 	@Column(name = "type_of_user")
 	private String userType;
-	
-	
-	@ManyToMany
-	@JoinTable(name = "preferred_language_user",joinColumns = {@JoinColumn(name="email_id")},inverseJoinColumns = {@JoinColumn(name="language_id")})
-	private Set<PreferredLanguage> preferredLanguage = new HashSet<PreferredLanguage>();
 
+	@ManyToMany
+	@JoinTable(name = "preferred_language_user", joinColumns = {
+			@JoinColumn(name = "email_id") }, inverseJoinColumns = { @JoinColumn(name = "language_id") })
+	private Set<PreferredLanguage> preferredLanguage = new HashSet<PreferredLanguage>();
 
 	public User() {
 		super();
-		isActive=true;
+		isActive = true;
 // TODO Auto-generated constructor stub
 	}
 

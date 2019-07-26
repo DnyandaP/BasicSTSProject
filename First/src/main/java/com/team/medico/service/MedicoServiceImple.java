@@ -1,6 +1,7 @@
 package com.team.medico.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -76,6 +77,22 @@ public class MedicoServiceImple implements MedicoService {
 	@Override
 	public boolean contactExist(String contact) {
 		return medDao.contactExist(contact);
+	}
+
+	@Override
+	public void insertCompletePatient(Patient patient, History history) {
+		medDao.savePatient(patient);
+		medDao.saveHistory(history);
+	}
+
+	@Override
+	public Patient patientByEmailId(String emailId) {
+		return medDao.getPatientByEmailId(emailId);
+	}
+
+	@Override
+	public List<Doctor> getApprovedDoctor() {
+		return medDao.getApprovedDoctor();
 	}
 
 	

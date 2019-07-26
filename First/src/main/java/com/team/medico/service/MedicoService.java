@@ -2,6 +2,8 @@ package com.team.medico.service;
 
 
 
+import java.util.List;
+
 import com.team.medico.model.Admin;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
@@ -17,6 +19,8 @@ public interface MedicoService {
 	// public void modifyUser(User user);
 	// public List<User> selectAllUsers();
 	public boolean checkUser(User user);
+	
+	public List<Doctor> getApprovedDoctor();
 
 	public User getUser(String emailId);
 
@@ -35,4 +39,8 @@ public interface MedicoService {
 	public void insertAdmin(Admin admin, User user);
 	
 	public Doctor doctorByEmailId(String emailId);
+	
+	public Patient patientByEmailId(String emailId);
+	
+	public void insertCompletePatient(Patient patient, History history);
 }

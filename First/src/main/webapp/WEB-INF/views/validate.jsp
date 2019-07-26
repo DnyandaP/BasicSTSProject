@@ -1,5 +1,6 @@
 <%@page import="com.team.medico.model.User"%>
 <%@ include file="no-cache-store.jsp" %> 
+<%@ page errorPage="error.jsp" %>  
 <% 
 	User user  = (User)session.getAttribute("user");
 	if(user.getUserType().equals("patient")){

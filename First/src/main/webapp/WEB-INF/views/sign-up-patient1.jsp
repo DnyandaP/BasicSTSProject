@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page errorPage="error.jsp" %>  
 <!DOCTYPE html>
 <html>
@@ -61,23 +62,22 @@
                             
                             
                             
-                            <form action="savePatient" method="post">
+                            <form:form action="savePatient" modelAttribute="user" method="post">
                                 <div class="form-row">
                                 
                                 <!-- user name -->
                                     <div class="form-group col-md-6">
-                                      <spring:bind path="user.userName">
-									Name<input id="Full Name" required="required" name="userName" placeholder="Full Name"
-										class="form-control" autocomplete="off" type="text">
-									</spring:bind>
+									Name<form:input id="Full Name" path="userName" required="required" name="userName" placeholder="Full Name"
+										class="form-control" autocomplete="off" type="text"/>
+									
                                     </div>
                                     <div class="form-group col-md-6">
                                     
                                     <!-- Email Id -->
-                                      <spring:bind path="user.emailId">
-									Email Id<input type="email" name="emailId" required="required"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="8 or more character"
-										class="form-control" id="inputEmail4" autocomplete="off" placeholder="Email">
-									</spring:bind>
+                                      <spring:message text="Email Address" var='emailIdPlace' />
+									Email Id<form:input type="email" path="emailId" name="emailId" required="required"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="8 or more character"
+										class="form-control" id="inputEmail4" autocomplete="off" placeholder="Email"/>
+											<form:errors path="emailId" cssClass="error" />
 									<!-- ajax response -->
                                      		<div id="ajaxResponse" style="color:red"></div>
                                     </div>
@@ -87,21 +87,21 @@
                                     <div class="form-group col-md-6">
                                     
                                     <!-- Password -->
-                                     <spring:bind path="user.password">
-									Password<input id="Password" name="password" required="required" placeholder="Password"
+                                     
+									Password<form:input id="Password"  path="password" name="password" required="required" placeholder="Password"
 										pattern=".{8,}" title="8 or more character" autocomplete="off"
-										class="form-control" type="password">
-									</spring:bind>
+										class="form-control" type="password"/>
+									
                                     </div>
                                     <div class="form-group col-md-6">
                                     
                                     <!-- aadhar -->
-                                     <spring:bind path="user.aadharNo">
-									Aadhar no<input id="Aadhar" name="aadharNo" required="required" placeholder="Addhar No"
+                                    
+									Aadhar no<form:input id="Aadhar"  path="aadharNo" name="aadharNo" required="required" placeholder="Addhar No"
 										pattern=".{12}"
 										title="plaease enter valid AdharNo and no space between number" autocomplete="off"
-										class="form-control" type="number">
-									</spring:bind>
+										class="form-control" type="number"/>
+									
 									<!-- ajax response -->
                                      		<div id="ajaxResponse2" style="color:red"></div>
                                     </div>
@@ -112,34 +112,34 @@
                               <div class="form-row">
                  
                                   <div class="form-group col-md-6">
-                                  <spring:bind path="user.contactNo">
-									Contact Number<input type="text" name="contactNo" class="form-control" required="required" id="Contact"
+                                  
+									Contact Number<input type="text" path="contactNo" name="contactNo" class="form-control" required="required" id="Contact"
 										pattern="^[6-9]\d{9}$" title="plaease enter valid number" autocomplete="off"
-										placeholder="Contact">
-									</spring:bind>
+										placeholder="Contact"/>
+								
 									<!-- ajax response -->
                                      		<div id="ajaxResponse3" style="color:red"></div>
                                     </div>
                                     <!-- gender -->
                                     <div class="form-group col-md-6">
-									<spring:bind path="user.gender">
-									Gender<select name="gender" class="form-control">
+									
+									Gender<form:select path="gender" name="gender" class="form-control">
 										<option selected>Gender</option>
 										<option value="Male">Male</option>
 										<option value="Female">Female</option>
 										<option value="Transgender"> Transgender </option>
-									</select>
-									</spring:bind>
+									</form:select>
+									
 									</div>
                                   </div>
                             
                             	<div class="form-row">
 									<div class="form-group col-md-6">
-                                      Date of Birth<spring:bind path="user.dob">
-									<input type="date" class="form-control" id="dateofbirth"
+                                      Date of Birth
+									<form:input type="date" path="dob" class="form-control" id="dateofbirth"
 									name="dob" autocomplete="off"
-										placeholder="Dateofbirth">
-									</spring:bind>
+										placeholder="Dateofbirth"/>
+									
                                  	</div>
 								</div>
                
@@ -183,7 +183,7 @@
                                   <a href="login_form" class="btn btn-primary">Login</a>
                                </div>
                             </div>
-                            </form>
+                            </form:form>
                         </div>
                     </div>
                 </div>
