@@ -7,6 +7,7 @@
 	User loggedUser = (User)session.getAttribute("user");
 	if(loggedUser !=null && loggedUser.getEmailId()!=null){
  	User user  = (User)session.getAttribute("user"); 
+ 	String token = (String)session.getAttribute("token");
 %>
 <!DOCTYPE html>
 <html>
@@ -16,8 +17,10 @@
 </head>
 <body>
 	<h1><%=user.getUserName() %></h1>
-
+	<h5 id="tokenId"><%=token%></h5>
 	<script>    
+	var tok = document.getElementById("tokenId").innerText;
+	console.log(tok);
     function onVidyoClientLoaded(status) {
 	if (status.state == "READY"){
     VC.CreateVidyoConnector({
@@ -49,7 +52,7 @@ function joinCall(){
 		
     vidyoConnector.Connect({
 			host: "prod.vidyo.io",
-			token: 'cHJvdmlzaW9uAGRueUA4NWFiYWYudmlkeW8uaW8ANjM3MzA2OTAxNjYAADZhMjgxYTllNjdjN2YzZmI0MDJjYTBjNTQ4NjZkNWQ5YmJkOTI5YTE0YmE2Y2ZiZDEyMjdmMWFjYWQ0OTUxYmI1MzkyMmI1ODkzYjcwMTJmY2NkYTU4MDIwYmQ2NWU3Ng', //Generated Token
+			token: tok, //Generated Token
 			displayName: "user1", //User Name
 			resourceId: "demoroom", //Conference Name
 		onSuccess: function () {
@@ -69,7 +72,13 @@ function joinCall(){
 }
 		
 	</script>
+	<h1>hello!!!</h1>
+	
 	<div id="renderer" style="position: absolute; top: 41px; left: 3px; bottom: -23px; z-index: 99; height: 300px; width: 300px;"></div>
+	
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	<button onclick="joinCall()">Connect</button>
 	<script src="https://static.vidyo.io/latest/javascript/VidyoClient/VidyoClient.js?onload=onVidyoClientLoaded&webrtc=true&plugin=false"></script>
 </body>

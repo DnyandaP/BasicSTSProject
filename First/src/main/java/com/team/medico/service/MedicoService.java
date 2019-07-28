@@ -21,8 +21,12 @@ public interface MedicoService {
 	// public void modifyUser(User user);
 	// public List<User> selectAllUsers();
 	public boolean checkUser(User user);
-	
+	public void insertTokenToAppointment(String token,int slotId);
+	public boolean checkToken(int slotId);
+	public String getTokenFromAppointment(int slotId);
+	public void updateStatus(int slotId);
 	public List<Doctor> getApprovedDoctor();
+	public List<AppointmentBooking> getBookedAppointmentForPat(String emailId);
 
 	public User getUser(String emailId);
 

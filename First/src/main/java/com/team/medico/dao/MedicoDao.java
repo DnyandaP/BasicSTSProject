@@ -28,5 +28,11 @@ public interface MedicoDao {
 	public List<Timeslot> getBookedTimeSlots(String emailId);
 	public List<AppointmentBooking> getBookedAppointment(String emailId);
 	public Timeslot getTimeSlotById(int slotId);
+	public void insertTokenToAppointment(String token,int slotId);
+	public boolean checkToken(int slotId);
+	public String getToken(int slotId);
+	public void updateTimeSlotStatus(int slotId);
+	public void updateAppointmentBookingStatus(int slotId);
+	public List<AppointmentBooking> getBookedAppointmentForPat(String emailId);
 }
 

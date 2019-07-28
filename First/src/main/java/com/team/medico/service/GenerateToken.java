@@ -47,8 +47,8 @@ public class GenerateToken {
 
     public String getToken(String user) {
 
-        String key = "e3a6aa2e8d384decbf2a4c8683f07a78";
-        String appID = "85abaf.vidyo.io";
+        String key = "0e2802061bde42308e734ffb1e9a0642";
+        String appID = "46abd3.vidyo.io";
         String userName = user;
         String vCardFilePath = null;    // optional
         String expiresInSeconds = "1800"; // required if expiresAt is not set
@@ -103,8 +103,9 @@ public class GenerateToken {
             System.out.println("Generating Token...");
             //System.out.println(generateProvisionToken(key, userName + "@" + appID, expires, vCard))
             String tt = generateProvisionToken(key, userName + "@" + appID, expires, vCard);
-            System.out.println(tt);
-            String[] arr =tt.split("==",2);
+            
+            String[] arr =tt.split("=",2);
+            System.out.println(arr[0]);
             return arr[0];
         } catch (NumberFormatException nfe) {
             System.out.println("Failed to parse expiration time: " + expires);

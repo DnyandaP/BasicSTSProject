@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mysql.cj.Session;
 import com.team.medico.model.AppointmentBooking;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.PreferredLanguage;
@@ -34,6 +35,7 @@ import com.team.medico.model.Timeslot;
 import com.team.medico.model.UploadedFile;
 import com.team.medico.model.User;
 import com.team.medico.service.EmailServiceImple;
+import com.team.medico.service.GenerateToken;
 import com.team.medico.service.MedicoService;
 
 @Controller
@@ -45,16 +47,21 @@ public class DoctorController {
 	@Autowired
 	public EmailServiceImple emailService;
 	
+	@Autowired
+	public GenerateToken gen;
+	
 	//doctor profile
 	@RequestMapping(value="/welcomeDoctor")
 	public String welcomeDoctor(ModelMap model,HttpSession session) { //redirecting to doctor
 		User user = (User) session.getAttribute("user");
+		if(user!=null) {
 		Doctor doctor = medService.doctorByEmailId(user.getEmailId());
 		if(doctor.getStatus().equals("Pending")) { //checking the approval status
 			return "pending";
 		}
 		List<AppointmentBooking> bookedAppList = medService.getBookedAppointmentOfDoctor(user.getEmailId());
 		session.setAttribute("bookedAppList", bookedAppList);
+		}
 		return "doctor";
 	}
 		
@@ -62,19 +69,21 @@ public class DoctorController {
 	//ajax call for login page
 	@RequestMapping("/timeElapse")
 		@ResponseBody
-		public String getEmail(@RequestParam String slotIdString) {
-			int slotId = Integer.parseInt(slotIdString);
+		public String getEmail(@RequestParam String slotIdString,HttpSession session) {
+			int slotId = Integer.parseInt(slotIdString);			
 			Timeslot timeslot = medService.getTimeSlotById(slotId); //we get slot id from the ajax call
 			if(timeslot!=null) {
-				//System.out.println(timeslot.getStartTime());
-				
 				Calendar cal = Calendar.getInstance();
 		        Date date=cal.getTime();
 		        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		        String later=dateFormat.format(date);
-		        LocalTime currentTime = new LocalTime(later);
-		        LocalTime earlierTable = new LocalTime(timeslot.getStartTime());
-		        if(earlierTable.compareTo(currentTime)<0) {
+		        LocalTime currentTime = new LocalTime(later); //current local time
+		        LocalTime startTable = new LocalTime(timeslot.getStartTime()); //start time from timeslot
+		        LocalTime endTimeTable = new LocalTime(timeslot.getEndTime());
+		        if(endTimeTable.compareTo(currentTime)<0) {
+		        	medService.updateStatus(slotId);
+		        }else if(startTable.compareTo(currentTime)<0) {
+		        	session.setAttribute("slotId", slotId);
 		        	return "Appointment Active";
 		        }
 			}
@@ -83,7 +92,17 @@ public class DoctorController {
 	
 	//video calling page
 	@RequestMapping(value="/video")
-	public String helloSuccess() { //redirecting to doctor
+	public String helloSuccess(HttpSession session) { //redirecting to doctor
+		int slotId = (Integer)session.getAttribute("slotId");
+		String token;
+		if(!medService.checkToken(slotId)) {
+		token = gen.getToken("dny");
+		medService.insertTokenToAppointment(token, slotId);
+		}else {
+			token = medService.getTokenFromAppointment(slotId);
+		}
+		session.setAttribute("token", token);
+			
 		return "video";
 	}
 	

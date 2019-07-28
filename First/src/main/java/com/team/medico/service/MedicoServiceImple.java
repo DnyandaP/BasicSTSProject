@@ -113,6 +113,36 @@ public class MedicoServiceImple implements MedicoService {
 		return medDao.getTimeSlotById(slotId);
 	}
 
+	@Override
+	public void insertTokenToAppointment(String token, int slotId) {
+		medDao.insertTokenToAppointment(token, slotId);
+		
+	}
+
+	@Override
+	public boolean checkToken(int slotId) {
+		
+		return medDao.checkToken(slotId);
+	}
+
+	@Override
+	public String getTokenFromAppointment(int slotId) {
+		
+		return medDao.getToken(slotId);
+	}
+
+	@Override
+	public void updateStatus(int slotId) {
+		medDao.updateAppointmentBookingStatus(slotId);
+		medDao.updateTimeSlotStatus(slotId);
+	}
+
+	@Override
+	public List<AppointmentBooking> getBookedAppointmentForPat(String emailId) {
+		
+		return medDao.getBookedAppointmentForPat(emailId);
+	}
+
 	
 
 }

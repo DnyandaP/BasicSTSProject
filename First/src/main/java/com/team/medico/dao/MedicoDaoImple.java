@@ -277,6 +277,82 @@ public class MedicoDaoImple implements MedicoDao {
 		return timeslot;
 	}
 
+
+
+	@Override
+	public void insertTokenToAppointment(String token,int slotId) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class, slotId);
+		app.setToken(token);
+		session.save(app);
+		tx.commit();
+		session.close();	
+	}
+
+
+
+	@Override
+	public boolean checkToken(int slotId) {
+		Session session = this.sessionFactory.openSession();
+		AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class, slotId);
+		session.close();
+		if(app.getToken()!=null) {
+			return true;
+		}
+		return false;
+	}
+
+
+
+	@Override
+	public String getToken(int slotId) {
+		Session session = this.sessionFactory.openSession();
+		AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class, slotId);
+		session.close();
+		return app.getToken();
+	}
+
+
+
+	@Override
+	public void updateTimeSlotStatus(int slotId) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Timeslot timeslot = (Timeslot)session.get(Timeslot.class,slotId);
+		timeslot.setTimeSlotStatus("completed");
+		session.save(timeslot);
+		tx.commit();
+		session.close();
+	}
+
+
+
+	@Override
+	public void updateAppointmentBookingStatus(int slotId) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class, slotId);
+		app.setStatus("completed");
+		session.save(app);
+		tx.commit();
+		session.close();
+	}
+
+
+
+	@Override
+	public List<AppointmentBooking> getBookedAppointmentForPat(String emailId) {
+		Session session = this.sessionFactory.openSession();
+		List<AppointmentBooking> appList;
+		Query q = session.createQuery("from AppointmentBooking where emailId=? and status=?");
+		q.setString(1, "booked");
+		q.setString(0, emailId);
+		appList = q.list();
+		session.close();
+		return appList;
+	}
+
 }
 
 	

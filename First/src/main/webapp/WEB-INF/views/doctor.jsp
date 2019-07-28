@@ -24,7 +24,8 @@
 	<a href="video">video</a>
 	<a href="logout">logout</a>
 	<c:forEach items="${bookedAppList}" var="slot">
-			<h5>${slot.getSlotId()}</h5>
+			<input type="hidden" id="slot<%=i%>" value="${slot.getSlotId()}">
+			<h5 >${slot.getSlotId()}</h5>
 			<h5>${slot.getPatient().getUser().getUserName()}</h5> 
 			<a href="video" id="anchor<%=i%>"></a>
 			<%i++;%>
@@ -33,12 +34,12 @@
         <script type="text/javascript">
         
         setInterval(function(){
+        	var slotId = $("#slot1").val();
         	 $.ajax({
         	  url: 'timeElapse',
         	  data : {
-        		  slotIdString: '1'
+        		  slotIdString: slotId
 				},
-        	 
         	  success: function(response){
         		  $('#anchor1').text(response);
         	  }
@@ -52,6 +53,6 @@
 </html>
 <% 
 	}else{
-		response.sendRedirect("logout");	
+		response.sendRedirect("logout");
 	}
  %>

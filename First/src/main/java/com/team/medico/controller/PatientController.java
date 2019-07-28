@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.team.medico.model.AppointmentBooking;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
@@ -32,9 +33,14 @@ public class PatientController {
 	
 	//patient profile
 		@RequestMapping(value="/welcome")
-		public String welcomePatient(User user,ModelMap model,HttpSession session) { //redirecting to patient
+		public String welcomePatient(ModelMap model,HttpSession session) { //redirecting to patient
+			User user = (User) session.getAttribute("user");
+			if(user!=null) {
 			List<Doctor> docList = userService.getApprovedDoctor();
 			session.setAttribute("docList", docList);
+			List<AppointmentBooking> appList = userService.getBookedAppointmentForPat(user.getEmailId());
+			session.setAttribute("appList", appList);
+			}
 			return "patient";
 		}
 		
