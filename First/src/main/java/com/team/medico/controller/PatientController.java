@@ -91,6 +91,9 @@ public class PatientController {
 		//after submit of patient reg form
 		@RequestMapping(value="/savePatient")
 		public String savePatient(@RequestParam(name = "prefLanguage")List<String> pl, User user, ModelMap model) {
+			if(userService.getUser(user.getEmailId())!=null) {
+				return "sign-up-patient";
+			}
 			Set<PreferredLanguage> preferredLanguage = new HashSet<PreferredLanguage>();
 			for(String items : pl){
 				preferredLanguage.add(userService.getLanguage(items));//fecthing from database

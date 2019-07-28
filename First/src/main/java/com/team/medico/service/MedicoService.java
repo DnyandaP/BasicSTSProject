@@ -5,10 +5,12 @@ package com.team.medico.service;
 import java.util.List;
 
 import com.team.medico.model.Admin;
+import com.team.medico.model.AppointmentBooking;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Timeslot;
 import com.team.medico.model.User;
 
 
@@ -43,4 +45,10 @@ public interface MedicoService {
 	public Patient patientByEmailId(String emailId);
 	
 	public void insertCompletePatient(Patient patient, History history);
+	
+	public List<Timeslot> getBookedTimeSlotOfDoctor(String emailId);
+	
+	public List<AppointmentBooking> getBookedAppointmentOfDoctor(String emailId);
+	
+	public Timeslot getTimeSlotById(int slotId);
 }

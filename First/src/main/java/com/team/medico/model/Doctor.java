@@ -40,6 +40,10 @@ public class Doctor {
 	@Column(name="rating")
 	private double rating;
 	
+	@OneToOne
+	@JoinColumn(name = "email_id")
+	private User user;
+	
 	public Doctor() {
 		super();
 		rating = 0;
@@ -54,9 +58,7 @@ public class Doctor {
 		this.status = status;
 	}
 
-	@OneToOne
-	@JoinColumn(name = "email_id")
-	private User user;
+	
 
 	public String getEmailId() {
 		return emailId;

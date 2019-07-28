@@ -5,6 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +16,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -19,10 +24,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.medico.model.AppointmentBooking;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Timeslot;
 import com.team.medico.model.UploadedFile;
 import com.team.medico.model.User;
 import com.team.medico.service.EmailServiceImple;
@@ -42,13 +50,46 @@ public class DoctorController {
 	public String welcomeDoctor(ModelMap model,HttpSession session) { //redirecting to doctor
 		User user = (User) session.getAttribute("user");
 		Doctor doctor = medService.doctorByEmailId(user.getEmailId());
-		System.out.println(doctor.getStatus());
-		if(doctor.getStatus().equals("Pending")) {
+		if(doctor.getStatus().equals("Pending")) { //checking the approval status
 			return "pending";
 		}
+		List<AppointmentBooking> bookedAppList = medService.getBookedAppointmentOfDoctor(user.getEmailId());
+		session.setAttribute("bookedAppList", bookedAppList);
 		return "doctor";
 	}
 		
+	
+	//ajax call for login page
+	@RequestMapping("/timeElapse")
+		@ResponseBody
+		public String getEmail(@RequestParam String slotIdString) {
+			int slotId = Integer.parseInt(slotIdString);
+			Timeslot timeslot = medService.getTimeSlotById(slotId); //we get slot id from the ajax call
+			if(timeslot!=null) {
+				//System.out.println(timeslot.getStartTime());
+				
+				Calendar cal = Calendar.getInstance();
+		        Date date=cal.getTime();
+		        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		        String later=dateFormat.format(date);
+		        LocalTime currentTime = new LocalTime(later);
+		        LocalTime earlierTable = new LocalTime(timeslot.getStartTime());
+		        if(earlierTable.compareTo(currentTime)<0) {
+		        	return "Appointment Active";
+		        }
+			}
+			return "";
+		}
+	
+	//video calling page
+	@RequestMapping(value="/video")
+	public String helloSuccess() { //redirecting to doctor
+		return "video";
+	}
+	
+	
+	
+	
 		
 		@RequestMapping(value="/signUpDoctor")
 		public String signUpDoctor(ModelMap model) {
@@ -62,6 +103,9 @@ public class DoctorController {
 		@RequestMapping(value="/saveDoctor")
 		public String saveDoctor(@RequestParam(name = "prefLanguage")List<String> pl,UploadedFile uploadedFile, Doctor doctor,User user,ModelMap model) {
 			
+			if(medService.doctorByEmailId(doctor.getEmailId())!=null) {
+				return "sign-up-doctor";
+			}
 			 InputStream inputStreamL = null;    
 			  OutputStream outputStreamL = null;
 			  InputStream inputStreamD = null;    

@@ -38,10 +38,6 @@ public class MedicoController {
 	//login page
 	@RequestMapping(value = "/login_form")
 	public String prepLoginForm(ModelMap model,HttpSession session) {
-//		if(session.getAttribute("user")!=null) { //if user comes back to login page without logout
-//			session.removeAttribute("user");
-//			session.invalidate();
-//		}
 		model.put("user", new User());
 		model.put("doctor",new Doctor());
 		model.put("message",""); //so that the div for wrong password can be empty
@@ -69,11 +65,11 @@ public class MedicoController {
 	}
 
 	
-	//video calling page
-	@RequestMapping(value="/video")
-	public String helloSuccess(User user,ModelMap model) { //redirecting to doctor
-		return "video";
-	}
+//	//video calling page
+//	@RequestMapping(value="/video")
+//	public String helloSuccess(User user,ModelMap model) { //redirecting to doctor
+//		return "video";
+//	}
 	
 	//logout page
 	@RequestMapping(value="/logout")

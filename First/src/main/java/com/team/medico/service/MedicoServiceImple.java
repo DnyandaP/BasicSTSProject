@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.team.medico.dao.MedicoDao;
 import com.team.medico.model.Admin;
+import com.team.medico.model.AppointmentBooking;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Timeslot;
 import com.team.medico.model.User;
 
 @Service
@@ -93,6 +95,22 @@ public class MedicoServiceImple implements MedicoService {
 	@Override
 	public List<Doctor> getApprovedDoctor() {
 		return medDao.getApprovedDoctor();
+	}
+
+	@Override
+	public List<Timeslot> getBookedTimeSlotOfDoctor(String emailId) {
+		
+		return medDao.getBookedTimeSlots(emailId);
+	}
+
+	@Override
+	public List<AppointmentBooking> getBookedAppointmentOfDoctor(String emailId) {
+		return medDao.getBookedAppointment(emailId);
+	}
+
+	@Override
+	public Timeslot getTimeSlotById(int slotId) {
+		return medDao.getTimeSlotById(slotId);
 	}
 
 	

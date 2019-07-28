@@ -3,10 +3,12 @@ package com.team.medico.dao;
 import java.util.List;
 
 import com.team.medico.model.Admin;
+import com.team.medico.model.AppointmentBooking;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Timeslot;
 import com.team.medico.model.User;
 
 public interface MedicoDao {	
@@ -23,5 +25,8 @@ public interface MedicoDao {
 	public Doctor getDoctorByEmailId(String emailId);
 	public Patient getPatientByEmailId(String emailId);
 	public List<Doctor> getApprovedDoctor();
+	public List<Timeslot> getBookedTimeSlots(String emailId);
+	public List<AppointmentBooking> getBookedAppointment(String emailId);
+	public Timeslot getTimeSlotById(int slotId);
 }
 

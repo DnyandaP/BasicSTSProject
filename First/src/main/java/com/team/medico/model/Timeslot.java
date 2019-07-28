@@ -37,6 +37,9 @@ public class Timeslot {
 	
 	
 	
+	public Timeslot() {
+		super();
+	}
 	public Timeslot(String emailId, String startTime, String endTime, Date timeSlotDate, String timeSlotStatus,
 			Doctor doctor) {
 		super();

@@ -1,6 +1,7 @@
 package com.team.medico.dao;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 
 import com.team.medico.model.Admin;
+import com.team.medico.model.AppointmentBooking;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
@@ -80,7 +82,7 @@ public class MedicoDaoImple implements MedicoDao {
 		session.close();
 	}
 
-	@Scheduled(fixedRate = 155000)
+	//@Scheduled(fixedRate = 155000)
 	public void demoServiceMethod()
     {
         long millis=System.currentTimeMillis();  //current date 
@@ -231,6 +233,48 @@ public class MedicoDaoImple implements MedicoDao {
 		List<Doctor> docList = q.list();
 		session.close();
 		return docList;
+	}
+
+
+
+	@Override
+	public List<Timeslot> getBookedTimeSlots(String emailId) {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from Timeslot where timeSlotStatus = ? and emailId=?");
+		q.setString(0, "booked");
+		q.setString(1, emailId);
+		List<Timeslot> timeSlotList = q.list();
+		session.close();
+		return timeSlotList;
+	}
+
+
+
+	@Override
+	public List<AppointmentBooking> getBookedAppointment(String emailId) {
+		List<AppointmentBooking> appList = new ArrayList<AppointmentBooking>();
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from Timeslot where timeSlotStatus = ? and emailId=?");
+		q.setString(0, "booked");
+		q.setString(1, emailId);
+		List<Timeslot> timeSlotList = q.list();
+		for(Timeslot slot : timeSlotList ) {
+			AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class,slot.getSlotId());
+			appList.add(app);
+		}
+		
+		session.close();
+		return appList;
+	}
+
+
+
+	@Override
+	public Timeslot getTimeSlotById(int slotId) {
+		Session session = this.sessionFactory.openSession();
+		Timeslot timeslot = (Timeslot)session.get(Timeslot.class,slotId);
+		session.close();
+		return timeslot;
 	}
 
 }
