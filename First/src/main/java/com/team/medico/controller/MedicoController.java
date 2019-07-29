@@ -40,12 +40,12 @@ public class MedicoController {
 		User user = (User) session.getAttribute("user");
 		if(user!=null) {
 			if(user.getUserType().equals("patient")) {
-				return "welcome";
+				return "patient";
 			}else if(user.getUserType().equals("doctor")) {
-				return "welcomeDoctor";
+				return "doctor";
 			}
 		}
-		return "login";
+		return "logout";
 	}
 	
 	//login page

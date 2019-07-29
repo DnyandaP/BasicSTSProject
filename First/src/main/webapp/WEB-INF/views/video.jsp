@@ -9,17 +9,87 @@
  	User user  = (User)session.getAttribute("user"); 
  	String token = (String)session.getAttribute("token");
 %>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Appointment Room</title>
+<link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/css/modern-business.css" rel="stylesheet">
+
 </head>
+
 <body>
-	<h1><%=user.getUserName() %></h1>
-	<h5><%=token%></h5>
-	<input id="tokenId" type="hidden" value="<%=token%>">
-	<script>    
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/medico/">Medico</a>
+	<a href="back"><h5 class="text-white mt-2">Hi <%=user.getUserName() %></h5></a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto"> 
+          <li class="nav-item">
+            <a class="nav-link" href="logout">Logout</a>
+          </li> 
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!--foam-->
+<input id="tokenId" type="hidden" value="<%=token%>">
+    <div class="container-fiuld mt-4 mb-4">
+          <div class="row">
+              <div class="col-12 mt-2 mb-2 text-center">
+                  <h1>Video Calling</h1>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div>
+                  
+                </div>
+            </div>
+            
+            <div id="renderer" class="col-md-6" style="border:1px solid black;height: 300px; width: 300px;">
+            </div>
+            <div class="col-md-3">
+                <div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fiuld">
+        <div class="col-12">
+            <div class="text-center" style="text-align: center;">
+               <p> <button onclick="joinCall()" type="submit" class="btn btn-info">Connect</button>
+                <a href="back" type="submit" class="btn btn-info">Back</a></p>
+            </div>
+        </div>
+    </div>
+
+   
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+<script>    
 	var tok = document.getElementById("tokenId").value;
 	console.log(tok);
     function onVidyoClientLoaded(status) {
@@ -73,15 +143,17 @@ function joinCall(){
 }
 		
 	</script>
-	<h1>hello!!!</h1>
-	
-	<div id="renderer" style="position: absolute; top: 41px; left: 3px; bottom: -23px; z-index: 99; height: 300px; width: 300px;"></div>
-	
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<button onclick="joinCall()">Connect</button>
-	<script src="https://static.vidyo.io/latest/javascript/VidyoClient/VidyoClient.js?onload=onVidyoClientLoaded&webrtc=true&plugin=false"></script>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+  
+  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://static.vidyo.io/latest/javascript/VidyoClient/VidyoClient.js?onload=onVidyoClientLoaded&webrtc=true&plugin=false"></script>
+
+
 </body>
+
 </html>
 <% 
 	}else{

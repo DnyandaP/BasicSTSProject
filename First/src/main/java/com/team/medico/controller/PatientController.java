@@ -107,7 +107,7 @@ public class PatientController {
 				userService.insertIntoAppointmentBooking(slotId, user.getEmailId());						
 				return "booked";
 			}
-			return "login";
+			return "logout";
 		}
 				//payment
 				@RequestMapping(value="/paymentGateway")
@@ -123,7 +123,7 @@ public class PatientController {
 					model.put("history",new History());
 					return "complete-profile";
 					}
-					return "login";
+					return "logout";
 				}
 		
 		

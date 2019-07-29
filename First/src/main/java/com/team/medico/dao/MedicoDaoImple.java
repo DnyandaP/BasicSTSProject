@@ -102,7 +102,7 @@ public class MedicoDaoImple implements MedicoDao {
 					String str1 = str + ":" + arrOfStr[1];
 					str++;
 					String str2 = str + ":" + arrOfStr[1];
-					Timeslot ts = new Timeslot(doc.getEmailId(), str1, str2, new java.sql.Date(millis), "booked", doc);
+					Timeslot ts = new Timeslot(doc.getEmailId(), str1, str2, new java.sql.Date(millis), "unbooked", doc);
 					Session session = this.sessionFactory.openSession();
 					Transaction tx = session.beginTransaction();
 
@@ -379,7 +379,7 @@ public class MedicoDaoImple implements MedicoDao {
 	public void updateTimeslotStatusToUnused() {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		Query q = session.createQuery("from Timeslot where status=?");
+		Query q = session.createQuery("from Timeslot where timeSlotStatus=?");
 		q.setString(0, "unbooked");
 		List<Timeslot> slotList = q.list();
 		for(Timeslot slot : slotList) {
