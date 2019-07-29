@@ -78,17 +78,46 @@ public class PatientController {
 			return "patient";
 		}
 		
-		//sign Up for patient
-				@RequestMapping(value="/bookAppointment")
-				public String bookAppointment(ModelMap model, HttpSession session,@RequestParam(name="timeslotId")String slot) {
+		//sign Up for patient(old)
+//				@RequestMapping(value="/bookAppointment")
+//				public String bookAppointment(ModelMap model, HttpSession session,@RequestParam(name="timeslotId")String slot) {
+//					User user = (User) session.getAttribute("user");
+//					//int slotId = Integer.parseInt(slot);
+//					if(user!=null) {
+//					Patient patient = userService.patientByEmailId(user.getEmailId());
+//					if(patient!=null) {
+//						userService.updateTimeSlotUpdateToBooked(slotId);
+//						userService.insertIntoAppointmentBooking(slotId, user.getEmailId());						
+//						return "booked";
+//					}
+//					model.put("patient", new Patient());
+//					model.put("history",new History());
+//					return "complete-profile";
+//					}
+//					return "login";
+//				}
+		
+		@RequestMapping(value="/booked")
+		public String bookAppointment(ModelMap model, HttpSession session) {
+			User user = (User) session.getAttribute("user");
+			String slot = (String) session.getAttribute("slot");
+			int slotId = Integer.parseInt(slot);
+			if(user!=null) {
+				userService.updateTimeSlotUpdateToBooked(slotId);
+				userService.insertIntoAppointmentBooking(slotId, user.getEmailId());						
+				return "booked";
+			}
+			return "login";
+		}
+				//payment
+				@RequestMapping(value="/paymentGateway")
+				public String payment(ModelMap model, HttpSession session,@RequestParam(name="timeslotId")String slot) {
 					User user = (User) session.getAttribute("user");
-					int slotId = Integer.parseInt(slot);
+					session.setAttribute("slot", slot);
 					if(user!=null) {
 					Patient patient = userService.patientByEmailId(user.getEmailId());
-					if(patient!=null) {
-						userService.updateTimeSlotUpdateToBooked(slotId);
-						userService.insertIntoAppointmentBooking(slotId, user.getEmailId());						
-						return "booked";
+					if(patient!=null) {						
+						return "payment";
 					}
 					model.put("patient", new Patient());
 					model.put("history",new History());

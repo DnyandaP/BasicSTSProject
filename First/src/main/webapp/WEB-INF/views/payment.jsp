@@ -20,11 +20,10 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Payment</title>
+  <title>Payment Gateway</title>
 
- <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/modern-business.css" rel="stylesheet">
-
 
 </head>
 
@@ -51,16 +50,23 @@
   <div class="container mt-4 mb-4">
       <div class="row">
         <div class="col-12 text-center">
-            <h1>Booking Confirmed!</h1>
+            <h1>Payment Gateway</h1>
         </div>
       </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+        <a class="btn btn-info" href="booked">Complete Payment</a>
+        </div>
+      </div>
+
   </div>
     
 
- <!-- Bootstrap core JavaScript -->
+  <!-- Bootstrap core JavaScript -->
    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   
   <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
@@ -69,3 +75,4 @@
 	response.sendRedirect("logout");	
 	}
 %>
+

@@ -35,6 +35,19 @@ public class MedicoController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/back")
+	public String backFromVideo(ModelMap model,HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		if(user!=null) {
+			if(user.getUserType().equals("patient")) {
+				return "welcome";
+			}else if(user.getUserType().equals("doctor")) {
+				return "welcomeDoctor";
+			}
+		}
+		return "login";
+	}
+	
 	//login page
 	@RequestMapping(value = "/login_form")
 	public String prepLoginForm(ModelMap model,HttpSession session) {

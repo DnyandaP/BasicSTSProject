@@ -261,7 +261,9 @@ public class MedicoDaoImple implements MedicoDao {
 		List<Timeslot> timeSlotList = q.list();
 		for(Timeslot slot : timeSlotList ) {
 			AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class,slot.getSlotId());
-			appList.add(app);
+			if(app!=null) {
+				appList.add(app);
+			}
 		}
 		
 		session.close();

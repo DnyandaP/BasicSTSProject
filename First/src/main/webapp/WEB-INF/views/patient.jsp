@@ -23,8 +23,6 @@
 <title>Patient</title>
 
   <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap core CSS -->
-	<!-- Custom styles for this template -->
   <link href="${pageContext.request.contextPath}/resources/css/modern-business.css" rel="stylesheet">
 </head>
 
@@ -34,7 +32,7 @@
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
       <a class="navbar-brand" href="/medico/">Medico</a>
-      <h5 class="text-white mt-2"><%=user.getUserName() %></h5>
+     <a href="welcome"><h5 class="text-white mt-2"><%=user.getUserName() %></h5></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -66,7 +64,7 @@
             
             <div class="col-md-4" style="border:1px solid black;">
                 <div>
-                    <form action="bookAppointment" method="post">
+                    <form action="paymentGateway" method="post">
                         <div class="form-group">
                           <label for="dropdownlist1">Specialization</label>
                           <select class="form-control" id="dropdownlist1">
@@ -126,7 +124,7 @@
                         <th scope="row"><%=i%></th>
                         <td>${app.getTimeslot().getDoctor().getUser().getUserName()}</td>
                         <td>${app.getTimeslot().getStartTime()}</td>
-                        <td><a class="btn btn-info" href="video" id="anchor<%=i%>">Start Appointment</a></td>
+                        <td><a class="btn btn-info" href="video" id="anchor<%=i%>"></a></td>
                       </tr>
 			<%i++;%>
 			</c:forEach>

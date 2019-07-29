@@ -60,6 +60,10 @@ public class DoctorController {
 			return "pending";
 		}
 		List<AppointmentBooking> bookedAppList = medService.getBookedAppointmentOfDoctor(user.getEmailId());
+		int i =0;
+		for(AppointmentBooking a: bookedAppList) {
+			System.out.println(i++);
+		}
 		session.setAttribute("bookedAppList", bookedAppList);
 		}
 		return "doctor";
