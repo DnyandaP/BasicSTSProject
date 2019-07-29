@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -42,7 +44,7 @@ public class User {
 	private boolean isActive;
 	@Column(name = "type_of_user")
 	private String userType;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "preferred_language_user", joinColumns = {
 			@JoinColumn(name = "email_id") }, inverseJoinColumns = { @JoinColumn(name = "language_id") })

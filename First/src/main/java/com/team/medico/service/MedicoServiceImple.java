@@ -142,7 +142,39 @@ public class MedicoServiceImple implements MedicoService {
 		
 		return medDao.getBookedAppointmentForPat(emailId);
 	}
+	@Override
+	public List<Doctor> selectAllDoctor() {
+		return medDao.getAllDoctor();
+	}
+	
+	@Override
+	public Doctor selectDoctor1(String email) {
+		return medDao.getDoctor1(email);
+	}
 
+	@Override
+	public List<Patient> selectAllPatient() {
+		return medDao.getAllPatient();
+	}
+
+	@Override
+	public Doctor approveDoctor(String email) {
+		return medDao.approveDoctor(email);
+	}
+
+	@Override
+	public Doctor delteDoctor(String email) {
+		return medDao.deleteDoctor(email);
+	}
+	@Override
+	public List<Doctor> getApprovedDoctorSpec(String spec) {
+		return medDao.getApprovedDoctorSpec(spec);
+	}
+
+	@Override
+	public List<Timeslot> getTimeSlotOfDoctor(String emailId) {
+		return medDao.getTimeSlotOfDoctor(emailId);
+	}
 	
 
 }

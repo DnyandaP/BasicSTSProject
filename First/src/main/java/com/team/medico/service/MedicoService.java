@@ -55,4 +55,13 @@ public interface MedicoService {
 	public List<AppointmentBooking> getBookedAppointmentOfDoctor(String emailId);
 	
 	public Timeslot getTimeSlotById(int slotId);
+	public List<Doctor> selectAllDoctor();
+	public List<Patient> selectAllPatient();
+	public Doctor selectDoctor1(String email);
+
+	public Doctor approveDoctor(String email);
+
+	public Doctor delteDoctor(String email);
+	public List<Doctor> getApprovedDoctorSpec(String spec);
+	public List<Timeslot> getTimeSlotOfDoctor(String emailId);
 }

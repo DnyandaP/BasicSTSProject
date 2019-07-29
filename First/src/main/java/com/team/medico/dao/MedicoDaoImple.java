@@ -86,7 +86,8 @@ public class MedicoDaoImple implements MedicoDao {
 	public void demoServiceMethod()
     {
         long millis=System.currentTimeMillis();  //current date 
-        
+        updateAppointmentBookingStatusToUnused();
+        updateTimeslotStatusToUnused();
 		List<Doctor> docList = getApprovedDoctor();//fetching all approved doctor
 		if (docList != null) {
 			for (Doctor doc : docList) {
@@ -353,6 +354,137 @@ public class MedicoDaoImple implements MedicoDao {
 		return appList;
 	}
 
+
+
+	@Override
+	public void updateAppointmentBookingStatusToUnused() {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query q = session.createQuery("from AppointmentBooking where status=?");
+		q.setString(1, "unbooked");
+		List<AppointmentBooking> appList = q.list();
+		for(AppointmentBooking appointment : appList) {
+			appointment.setStatus("unused");
+			session.save(appointment);
+		}	
+		tx.commit();
+		session.close();
+	}
+
+
+
+	@Override
+	public void updateTimeslotStatusToUnused() {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query q = session.createQuery("from Timeslot where status=?");
+		q.setString(1, "unbooked");
+		List<Timeslot> slotList = q.list();
+		for(Timeslot slot : slotList) {
+			slot.setTimeSlotStatus("unused");
+			session.save(slot);
+		}	
+		tx.commit();
+		session.close();
+	}
+
+	@Override
+	public List<Doctor> getAllDoctor() {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from Doctor");
+		List<Doctor> doctorList = q.list();
+		session.close();
+		if(!doctorList.isEmpty()) {
+			return doctorList;
+		}
+		return null;
+	}
+
+	@Override
+	public Doctor getDoctor1(String email) {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from Doctor where email_id=?");
+		q.setString(0, email);
+		q.setMaxResults(1);
+		Doctor doctor =(Doctor) q.uniqueResult();
+		
+		session.close();
+		if(doctor!=null) {
+			return doctor;
+		}
+		return null;
+	}
+
+
+	@Override
+	public List<Patient> getAllPatient() {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from Patient");
+		List<Patient> patientList = q.list();
+		session.close();
+		if(!patientList.isEmpty()) {
+			return patientList;
+		}
+		return null;
+	}
+
+
+	@Override
+	public Doctor approveDoctor(String email) {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("update Doctor set status='Approved' where emailId=?");
+		q.setParameter(0, email);
+		int count = q.executeUpdate();
+		
+		
+		session.close();
+		if(count > 0) {
+			
+			return null;
+		}
+		return null;
+	}
+
+	@Override
+	public Doctor deleteDoctor(String email) {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("update User set isActive=? where emailId=?");
+		q.setBoolean(0, false);
+		q.setParameter(1, email);
+		int count = q.executeUpdate();
+		
+		session.close();
+		if(count > 0) {
+			
+			return null;
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Doctor> getApprovedDoctorSpec(String spec) {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from Doctor where status = ? and specialization = ?");
+		q.setString(0, "Approved");
+		q.setString(1, spec);
+		List<Doctor> docListSpec = q.list();
+		session.close();
+		return docListSpec;
+	}
+
+
+
+	@Override
+	public List<Timeslot> getTimeSlotOfDoctor(String emailId) {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from Timeslot where emailId = ? and timeSlotStatus = ?");
+		q.setString(0, emailId);
+		q.setString(1, "unbooked");
+		List<Timeslot> timeList = q.list();
+		session.close();
+		return timeList;
+	}
+	
 }
 
 	

@@ -93,6 +93,8 @@ public class DoctorController {
 	//video calling page
 	@RequestMapping(value="/video")
 	public String helloSuccess(HttpSession session) { //redirecting to doctor
+		User user = (User) session.getAttribute("user");
+		if(user!=null) {
 		int slotId = (Integer)session.getAttribute("slotId");
 		String token;
 		if(!medService.checkToken(slotId)) {
@@ -102,6 +104,7 @@ public class DoctorController {
 			token = medService.getTokenFromAppointment(slotId);
 		}
 		session.setAttribute("token", token);
+		}
 			
 		return "video";
 	}

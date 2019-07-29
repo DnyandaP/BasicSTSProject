@@ -25,10 +25,21 @@
 	<a href="completeProfile">complete Profile</a>
 	<form action="bookAppointment" method="post">
     Select a Category:&nbsp;
-    <select name="category">
-        <c:forEach items="${docList}" var="category">
-            <option value="${category.getEmailId()}">${category.getEmailId()}</option>
+    <select name="category" id="dropdownlist1">
+    	<option value="">Specialization</option>
+    	 <c:forEach items="${docList}" var="category">
+            <option value="${category.getSpecialization()}">${category.getSpecialization()}</option>
         </c:forEach>
+    </select>
+    <br/><br/>
+     <select id="dropdownlist2">
+     <option value="">Doctor</option>
+            
+    </select>
+    <br/><br/>
+     <select id="dropdownlist3">
+      <option value="">TimeSlot</option>
+            
     </select>
     <br/><br/>
     <input type="submit" value="Book" />
@@ -60,6 +71,44 @@
         	 });
         	}, 5000);
         
+        $(document).ready(function() {
+
+        $('#dropdownlist1').change(function() {
+        $.ajax({
+        url : 'getDoctorList',
+        data : {
+        spec : $('#dropdownlist1 option:selected').val()
+        },
+        success : function(responseJson) {
+        var $select = $('#dropdownlist2');
+        var obj = JSON.parse(responseJson);
+                        $.each(obj, function( index, value ) {
+                           $("<option>").val(value.emailId).text(value.user.userName).appendTo($select);
+        });
+        }
+        });
+        });
+        });
+
+        $(document).ready(function() {
+
+        $('#dropdownlist2').change(function() {
+        $.ajax({
+        url : 'getTimeList',
+        data : {
+        emailId : $('#dropdownlist2 option:selected').val()
+        },
+        success : function(responseJson) {
+        var $select = $('#dropdownlist3');
+        var obj = JSON.parse(responseJson);
+                        $.each(obj, function( index, value ) {
+                           $("<option>").val(value.slotId).text(value.startTime).appendTo($select);
+                           
+        });
+        }
+        });
+        });
+        });
 
         </script>  	
          <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>

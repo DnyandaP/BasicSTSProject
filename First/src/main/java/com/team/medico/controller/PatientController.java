@@ -12,12 +12,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.team.medico.model.AppointmentBooking;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Timeslot;
 import com.team.medico.model.User;
 import com.team.medico.service.EmailServiceImple;
 import com.team.medico.service.MedicoService;
@@ -111,6 +115,32 @@ public class PatientController {
 			emailService.sendSimpleMessage(user.getEmailId(), "Welcome To Medico", "Thank you for registering");
 			model.put("user", new User());
 			return "login";
+		}
+		
+		@RequestMapping(value="/getDoctorList")
+		@ResponseBody
+		public String doctorSpecList(ModelMap model,HttpSession session,@RequestParam String spec) throws Exception{ //to get doctor list on spec
+			
+			List<Doctor> docList = userService.getApprovedDoctorSpec(spec);
+			session.setAttribute("docList", docList);
+			ObjectMapper objectMapper = new ObjectMapper();
+		    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+		    String arrayToJson = objectMapper.writeValueAsString(docList);
+			return arrayToJson;
+		}
+		@RequestMapping(value="/getTimeList")
+		@ResponseBody
+		public String doctorTimeSlotList(ModelMap model,HttpSession session,@RequestParam String emailId) throws Exception{ //to get doctor list on spec
+			List<Timeslot> timeList = userService.getTimeSlotOfDoctor(emailId);
+			
+			for(Timeslot d : timeList) {
+				System.out.println(d);
+			}
+			session.setAttribute("timeList", timeList);
+			ObjectMapper objectMapper = new ObjectMapper();
+		    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+		    String arrayToJson = objectMapper.writeValueAsString(timeList);
+			return arrayToJson;
 		}
 
 }

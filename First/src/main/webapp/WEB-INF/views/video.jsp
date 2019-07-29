@@ -17,9 +17,10 @@
 </head>
 <body>
 	<h1><%=user.getUserName() %></h1>
-	<h5 id="tokenId"><%=token%></h5>
+	<h5><%=token%></h5>
+	<input id="tokenId" type="hidden" value="<%=token%>">
 	<script>    
-	var tok = document.getElementById("tokenId").innerText;
+	var tok = document.getElementById("tokenId").value;
 	console.log(tok);
     function onVidyoClientLoaded(status) {
 	if (status.state == "READY"){
@@ -77,8 +78,7 @@ function joinCall(){
 	<div id="renderer" style="position: absolute; top: 41px; left: 3px; bottom: -23px; z-index: 99; height: 300px; width: 300px;"></div>
 	
 	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	<button onclick="joinCall()">Connect</button>
 	<script src="https://static.vidyo.io/latest/javascript/VidyoClient/VidyoClient.js?onload=onVidyoClientLoaded&webrtc=true&plugin=false"></script>
 </body>
