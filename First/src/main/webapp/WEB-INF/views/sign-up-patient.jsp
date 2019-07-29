@@ -136,7 +136,7 @@
                             	<div class="form-row">
 									<div class="form-group col-md-6">
                                       Date of Birth<spring:bind path="user.dob">
-									<input type="date" class="form-control" id="dateofbirth"
+									<input type="date" class="form-control" id="dateofbirth" max="2000-12-31"
 									name="dob" autocomplete="off"
 										placeholder="Dateofbirth">
 									</spring:bind>
@@ -148,13 +148,13 @@
 									<label>Preferred language</label>
 									<div class="checkbox">
 						
-										<label><input name="prefLanguage" type="checkbox" value="1">English</label>
+										<label><input name="prefLanguage" type="checkbox" value="1"> English </label>
 									</div>
 									<div class="checkbox">
-										<label><input name="prefLanguage" type="checkbox" value="3">Marathi</label>
+										<label><input name="prefLanguage" type="checkbox" value="3"> Marathi </label>
 									</div>
 									<div class="checkbox">
-										<label><input name="prefLanguage" type="checkbox" value="2">Hindi</label>
+										<label><input name="prefLanguage" type="checkbox" value="2"> Hindi </label>
 									</div>
 									
 								</div>

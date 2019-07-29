@@ -25,6 +25,7 @@ import com.team.medico.model.Timeslot;
 import com.team.medico.model.User;
 import com.team.medico.service.EmailServiceImple;
 import com.team.medico.service.MedicoService;
+import com.team.medico.service.SmsService;
 
 @Controller
 public class PatientController {
@@ -34,6 +35,9 @@ public class PatientController {
 	
 	@Autowired
 	public EmailServiceImple emailService;
+	
+	@Autowired
+	public SmsService sms;
 	
 	//patient profile
 		@RequestMapping(value="/welcome")
@@ -55,6 +59,7 @@ public class PatientController {
 		@RequestMapping(value="/completeProfile")
 		public String completeProfile(ModelMap model, HttpSession session) { //redirecting to patient
 			User user = (User) session.getAttribute("user");
+			if(user!=null) {
 			Patient patient = userService.patientByEmailId(user.getEmailId());
 			if(patient!=null) {
 				return "profileCompleted";
@@ -63,12 +68,15 @@ public class PatientController {
 			model.put("history",new History());
 			return "complete-profile";
 			}
+			return "logout";
+			}
 		
 		
 		//submit after of Complete Profile
 		@RequestMapping(value="/saveCompleteProfile")
 		public String saveCompleteProfile(Patient patient, History history, ModelMap model,HttpSession session) {
 			User user = (User) session.getAttribute("user");
+			if(user!=null) {
 			patient.setUser(user);
 			patient.setEmailId(user.getEmailId());
 			history.setEmailId(user.getEmailId());
@@ -76,6 +84,8 @@ public class PatientController {
 			model.put("patient", new Patient());
 			model.put("history",new History());
 			return "patient";
+			}
+			return "logout";
 		}
 		
 		//sign Up for patient(old)
@@ -100,9 +110,10 @@ public class PatientController {
 		@RequestMapping(value="/booked")
 		public String bookAppointment(ModelMap model, HttpSession session) {
 			User user = (User) session.getAttribute("user");
-			String slot = (String) session.getAttribute("slot");
-			int slotId = Integer.parseInt(slot);
+			
 			if(user!=null) {
+				String slot = (String) session.getAttribute("slot");
+				int slotId = Integer.parseInt(slot);
 				userService.updateTimeSlotUpdateToBooked(slotId);
 				userService.insertIntoAppointmentBooking(slotId, user.getEmailId());						
 				return "booked";
@@ -113,8 +124,8 @@ public class PatientController {
 				@RequestMapping(value="/paymentGateway")
 				public String payment(ModelMap model, HttpSession session,@RequestParam(name="timeslotId")String slot) {
 					User user = (User) session.getAttribute("user");
-					session.setAttribute("slot", slot);
 					if(user!=null) {
+					session.setAttribute("slot", slot);
 					Patient patient = userService.patientByEmailId(user.getEmailId());
 					if(patient!=null) {						
 						return "payment";
@@ -152,6 +163,7 @@ public class PatientController {
 			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 			userService.insertPatientSignUp(user);
 			emailService.sendSimpleMessage(user.getEmailId(), "Welcome To Medico", "Thank you for registering");
+			sms.sendSMS(user.getContactNo());
 			model.put("user", new User());
 			return "login";
 		}

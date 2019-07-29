@@ -65,22 +65,23 @@
                                         
                                         <spring:message text="Email Address" var='emailIdPlace' />
                                         <h4>Email Address</h4>
-                                          <form:input path="emailId" class="form-control" id="inputEmail4" placeholder="${emailIdPlace}"/>
+                                          <form:input path="emailId" class="form-control" id="inputEmail4" required="required" placeholder="${emailIdPlace}"/>
                                      		<!-- ajax response -->
                                      		<div id="ajaxResponse" style="color:red"></div>
                                         </div>
                                         <div class="form-group col-md-12">
                                        <spring:message text="Password" var='passwordPlace' />
                                        		<h4>Password</h4>
-                                          <form:password path="password" class="form-control"  placeholder="${passwordPlace}"/>
+                                          <form:password path="password" id="inputPassword4" class="form-control" required="required" placeholder="${passwordPlace}"/>
                                         </div>
                                       </div>
                                       <!-- wrong password -->
 										<div style="color:red">${message}</div>
                                     <div class="form-row">
-                                        <input type="submit" value="login" class="btn btn-danger">
+                                        <input type="submit" value="login" id="loginButtonId" class="btn btn-danger">
                                     </div>
                                 </form:form>
+                                	<div style="color:red">${message1}</div>
                             </div>
                         </div>
                     </div>
@@ -110,10 +111,15 @@
 				},
 				success : function(responseText) {
 					$('#ajaxResponse').text(responseText);
+					$('#loginButtonId').attr("disabled", false);
+					if(responseText !== ""){
+					$('#loginButtonId').attr("disabled", true);
+					}
 				}
 			});
 		});
 	});
+	
 	</script>
  <!-- Bootstrap core JavaScript -->
 

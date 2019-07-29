@@ -57,7 +57,10 @@ public class DoctorController {
 		if(user!=null) {
 		Doctor doctor = medService.doctorByEmailId(user.getEmailId());
 		if(doctor.getStatus().equals("Pending")) { //checking the approval status
-			return "pending";
+			model.put("message1", "Your profile's approval is still pending...");
+			model.put("user", new User());
+			session.invalidate();
+			return "login";
 		}
 		List<AppointmentBooking> bookedAppList = medService.getBookedAppointmentOfDoctor(user.getEmailId());
 		int i =0;

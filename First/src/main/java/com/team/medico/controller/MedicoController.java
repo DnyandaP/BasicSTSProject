@@ -54,6 +54,7 @@ public class MedicoController {
 		model.put("user", new User());
 		model.put("doctor",new Doctor());
 		model.put("message",""); //so that the div for wrong password can be empty
+		model.put("message1", "");
 		return "login";//changed
 	}
 	
@@ -73,6 +74,7 @@ public class MedicoController {
 			}
 		}
 		model.put("user", new User());
+		session.setAttribute("user", new User());
 		model.put("message","Sorry, your password was incorrect. Please double-check your password."); //for incorrect password
 		return "login";
 	}

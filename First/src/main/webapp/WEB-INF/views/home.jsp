@@ -1,5 +1,8 @@
+<%@page import="com.team.medico.model.User"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ include file="no-cache-store.jsp" %>  
 <%@ page errorPage="error.jsp" %>  
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +27,15 @@
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
       <a class="navbar-brand" href="/medico">Medico</a>
+      <%
+		User loggedUser = (User)session.getAttribute("user");
+		if(loggedUser !=null && loggedUser.getEmailId()!=null){
+		User user  = (User)session.getAttribute("user");
+	%>
+      <a href="back"><h5 class="text-white mt-2"><%=user.getUserName() %></h5></a>
+      <%
+	}
+      %>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
