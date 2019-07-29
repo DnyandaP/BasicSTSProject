@@ -43,5 +43,7 @@ public interface MedicoDao {
 	public Doctor deleteDoctor(String email);
 	public List<Doctor> getApprovedDoctorSpec(String spec);
 	public List<Timeslot> getTimeSlotOfDoctor(String emailId);
+	public void updateTimeSlotUpdateToBooked(int slotId);
+	public void insertIntoAppointmentBooking(int slotId, String emailId);
 }
 

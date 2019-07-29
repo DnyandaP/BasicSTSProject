@@ -175,6 +175,17 @@ public class MedicoServiceImple implements MedicoService {
 	public List<Timeslot> getTimeSlotOfDoctor(String emailId) {
 		return medDao.getTimeSlotOfDoctor(emailId);
 	}
+
+	@Override
+	public void updateTimeSlotUpdateToBooked(int slotId) {
+		medDao.updateTimeSlotUpdateToBooked(slotId);
+	}
+
+	@Override
+	public void insertIntoAppointmentBooking(int slotId, String emailId) {
+		medDao.insertIntoAppointmentBooking(slotId, emailId);
+		
+	}
 	
 
 }

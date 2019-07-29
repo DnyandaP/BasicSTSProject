@@ -38,6 +38,17 @@ public class AppointmentBooking {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public AppointmentBooking(int slotId, String emailId, String status, Patient patient, Timeslot timeslot) {
+		super();
+		this.slotId = slotId;
+		this.emailId = emailId;
+		this.status = status;
+		this.patient = patient;
+		this.timeslot = timeslot;
+	}
+
 
 	public int getSlotId() {
 		return slotId;

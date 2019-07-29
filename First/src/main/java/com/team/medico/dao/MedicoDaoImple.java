@@ -361,7 +361,7 @@ public class MedicoDaoImple implements MedicoDao {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Query q = session.createQuery("from AppointmentBooking where status=?");
-		q.setString(1, "unbooked");
+		q.setString(0, "unbooked");
 		List<AppointmentBooking> appList = q.list();
 		for(AppointmentBooking appointment : appList) {
 			appointment.setStatus("unused");
@@ -378,7 +378,7 @@ public class MedicoDaoImple implements MedicoDao {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Query q = session.createQuery("from Timeslot where status=?");
-		q.setString(1, "unbooked");
+		q.setString(0, "unbooked");
 		List<Timeslot> slotList = q.list();
 		for(Timeslot slot : slotList) {
 			slot.setTimeSlotStatus("unused");
@@ -483,6 +483,34 @@ public class MedicoDaoImple implements MedicoDao {
 		List<Timeslot> timeList = q.list();
 		session.close();
 		return timeList;
+	}
+
+
+
+	@Override
+	public void updateTimeSlotUpdateToBooked(int slotId) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Timeslot timeslot =(Timeslot) session.get(Timeslot.class, slotId);
+		timeslot.setTimeSlotStatus("booked");
+		session.save(timeslot);
+		tx.commit();
+		session.close();
+	}
+
+
+
+	@Override
+	public void insertIntoAppointmentBooking(int slotId, String emailId) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Timeslot timeslot =(Timeslot) session.get(Timeslot.class, slotId);
+		Patient patient = (Patient) session.get(Patient.class, emailId);
+		AppointmentBooking app = new AppointmentBooking(slotId, emailId, "booked", patient, timeslot);
+		session.save(app);
+		tx.commit();
+		session.close();
+		
 	}
 	
 }

@@ -39,9 +39,13 @@ public class PatientController {
 		@RequestMapping(value="/welcome")
 		public String welcomePatient(ModelMap model,HttpSession session) { //redirecting to patient
 			User user = (User) session.getAttribute("user");
+			Set<String> spec =new HashSet<String>();
 			if(user!=null) {
 			List<Doctor> docList = userService.getApprovedDoctor();
-			session.setAttribute("docList", docList);
+			for(Doctor d : docList) {
+				spec.add(d.getSpecialization());
+			}
+			session.setAttribute("spec", spec);
 			List<AppointmentBooking> appList = userService.getBookedAppointmentForPat(user.getEmailId());
 			session.setAttribute("appList", appList);
 			}
@@ -76,15 +80,21 @@ public class PatientController {
 		
 		//sign Up for patient
 				@RequestMapping(value="/bookAppointment")
-				public String bookAppointment(ModelMap model, HttpSession session) {
+				public String bookAppointment(ModelMap model, HttpSession session,@RequestParam(name="timeslotId")String slot) {
 					User user = (User) session.getAttribute("user");
+					int slotId = Integer.parseInt(slot);
+					if(user!=null) {
 					Patient patient = userService.patientByEmailId(user.getEmailId());
 					if(patient!=null) {
+						userService.updateTimeSlotUpdateToBooked(slotId);
+						userService.insertIntoAppointmentBooking(slotId, user.getEmailId());						
 						return "booked";
 					}
 					model.put("patient", new Patient());
 					model.put("history",new History());
 					return "complete-profile";
+					}
+					return "login";
 				}
 		
 		
@@ -120,8 +130,10 @@ public class PatientController {
 		@RequestMapping(value="/getDoctorList")
 		@ResponseBody
 		public String doctorSpecList(ModelMap model,HttpSession session,@RequestParam String spec) throws Exception{ //to get doctor list on spec
-			
 			List<Doctor> docList = userService.getApprovedDoctorSpec(spec);
+			for(Doctor d: docList) {
+				System.out.println(d);
+			}
 			session.setAttribute("docList", docList);
 			ObjectMapper objectMapper = new ObjectMapper();
 		    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
