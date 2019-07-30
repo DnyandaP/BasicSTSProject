@@ -186,6 +186,12 @@ public class MedicoServiceImple implements MedicoService {
 		medDao.insertIntoAppointmentBooking(slotId, emailId);
 		
 	}
+
+	@Override
+	public Patient getPatientById(String emailId) {
+		
+		return medDao.getPatientByEmailId(emailId);
+	}
 	
 
 }

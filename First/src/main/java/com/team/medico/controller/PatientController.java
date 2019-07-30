@@ -45,6 +45,9 @@ public class PatientController {
 			User user = (User) session.getAttribute("user");
 			Set<String> spec =new HashSet<String>();
 			if(user!=null) {
+				Patient patient = userService.getPatientById(user.getEmailId());
+				session.setAttribute("patient", patient);
+				
 			List<Doctor> docList = userService.getApprovedDoctor();
 			for(Doctor d : docList) {
 				spec.add(d.getSpecialization());
@@ -77,12 +80,16 @@ public class PatientController {
 		public String saveCompleteProfile(Patient patient, History history, ModelMap model,HttpSession session) {
 			User user = (User) session.getAttribute("user");
 			if(user!=null) {
+				Patient patient1 = userService.getPatientById(user.getEmailId());
+				if(patient1==null) {
+				
 			patient.setUser(user);
 			patient.setEmailId(user.getEmailId());
 			history.setEmailId(user.getEmailId());
 			userService.insertCompletePatient(patient, history);
-			model.put("patient", new Patient());
 			model.put("history",new History());
+				}
+			model.put("patient",patient1);
 			return "patient";
 			}
 			return "logout";
@@ -115,7 +122,10 @@ public class PatientController {
 				String slot = (String) session.getAttribute("slot");
 				int slotId = Integer.parseInt(slot);
 				userService.updateTimeSlotUpdateToBooked(slotId);
-				userService.insertIntoAppointmentBooking(slotId, user.getEmailId());						
+				userService.insertIntoAppointmentBooking(slotId, user.getEmailId());
+				Timeslot timeslot = userService.getTimeSlotById(slotId);
+				emailService.sendSimpleMessage(user.getEmailId(), "Appointment Booked", "Thank you for booking appointment with Medico.\nEnjoy hassel free consultation.");
+				emailService.sendSimpleMessage(timeslot.getEmailId(), "Appointment Booked", "Appointment booked by" +user.getUserName()+"\nBooked time slot: "+timeslot.getStartTime()+"-"+timeslot.getEndTime());
 				return "booked";
 			}
 			return "logout";
@@ -142,6 +152,7 @@ public class PatientController {
 		@RequestMapping(value="/signUpPatient")
 		public String signUpPatient(ModelMap model) {
 			model.put("user", new User());
+			model.put("patient", new Patient());//add now
 			return "sign-up-patient";
 		}
 		
@@ -158,11 +169,11 @@ public class PatientController {
 			for(String items : pl){
 				preferredLanguage.add(userService.getLanguage(items));//fecthing from database
 			}
+			emailService.sendSimpleMessage(user.getEmailId(), "Welcome To Medico", "Thank you for registering.\n\n Have a great health with Medico\n\nYour Email Id: "+user.getEmailId()+"\nPassword: "+user.getPassword());
 			user.setPreferredLanguage(preferredLanguage);//adding to particular patient
 			user.setUserType("patient");
 			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 			userService.insertPatientSignUp(user);
-			emailService.sendSimpleMessage(user.getEmailId(), "Welcome To Medico", "Thank you for registering");
 			sms.sendSMS(user.getContactNo());
 			model.put("user", new User());
 			return "login";

@@ -97,7 +97,7 @@
                                     
                                     <!-- aadhar -->
                                      <spring:bind path="user.aadharNo">
-									Aadhar no<input id="Aadhar" name="aadharNo" required="required" placeholder="Addhar No"
+									Aadhar no<input id="Aadhar" name="aadharNo" required="required" placeholder="Aadhar No"
 										pattern=".{12}"
 										title="plaease enter valid AdharNo and no space between number" autocomplete="off"
 										class="form-control" type="number">
@@ -114,7 +114,7 @@
                                   <div class="form-group col-md-6">
                                   <spring:bind path="user.contactNo">
 									Contact Number<input type="text" name="contactNo" class="form-control" required="required" id="Contact"
-										pattern="^[6-9]\d{9}$" title="plaease enter valid number" autocomplete="off"
+										pattern="^[+][91]{2}[6-9]\d{9}$" value="+91" title="plaease enter valid number" autocomplete="off"
 										placeholder="Contact">
 									</spring:bind>
 									<!-- ajax response -->
@@ -174,7 +174,7 @@
                                 </div>
                               <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <input type="submit" value="Sign Up" class="btn btn-danger">
+                                    <input type="submit" id="signupButtonId" value="Sign Up" class="btn btn-danger">
                                 </div>
                                 <div class="form-group col-md-4">
                                   
@@ -210,6 +210,10 @@
 				},
 				success : function(responseText) {
 					$('#ajaxResponse').text(responseText);
+					$('#signupButtonId').attr("disabled", false);
+					if(responseText !== ""){
+					$('#signupButtonId').attr("disabled", true);
+					}
 				}
 			});
 		});
@@ -223,6 +227,10 @@
 				},
 				success : function(responseText) {
 					$('#ajaxResponse2').text(responseText);
+					$('#signupButtonId').attr("disabled", false);
+					if(responseText !== ""){
+					$('#signupButtonId').attr("disabled", true);
+					}
 				}
 			});
 		});
@@ -236,6 +244,10 @@
 				},
 				success : function(responseText) {
 					$('#ajaxResponse3').text(responseText);
+					$('#signupButtonId').attr("disabled", false);
+					if(responseText !== ""){
+					$('#signupButtonId').attr("disabled", true);
+					}
 				}
 			});
 		});

@@ -97,7 +97,7 @@
                                     
                                     <!-- aadhar -->
                                     
-									Aadhar no<form:input id="Aadhar"  path="aadharNo" name="aadharNo" required="required" placeholder="Addhar No"
+									Aadhar no<form:input id="Aadhar"  path="aadharNo" name="aadharNo" required="required" placeholder="Aadhar No"
 										pattern=".{12}"
 										title="plaease enter valid AdharNo and no space between number" autocomplete="off"
 										class="form-control" type="number"/>

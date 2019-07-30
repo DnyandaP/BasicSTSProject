@@ -27,6 +27,7 @@ public interface MedicoService {
 	public void updateStatus(int slotId);
 	public List<Doctor> getApprovedDoctor();
 	public List<AppointmentBooking> getBookedAppointmentForPat(String emailId);
+	public Patient getPatientById(String emailId);
 
 	public User getUser(String emailId);
 

@@ -1,3 +1,4 @@
+<%@page import="com.team.medico.model.Patient"%>
 <%@page import="com.team.medico.model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -39,7 +40,14 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+            	<%
+					Patient loggedpat = (Patient)session.getAttribute("patient");
+					if(loggedpat ==null){
+				%>
                 <a class="btn btn-info" href="completeProfile">Complete Profile</a>
+                <%
+					}
+                %>
             </li> 
           <li class="nav-item">
             <a class="nav-link" href="logout">Logout</a>
@@ -111,7 +119,7 @@
                 <table class="table table-bordered mr-3 ml-3">
                     <thead class="thead-light">
                       <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Number</th>
                         <th scope="col">Doctor</th>
                         <th scope="col">Time</th>
                         <th scope="col">Appointment</th>
@@ -124,7 +132,7 @@
                         <th scope="row"><%=i%></th>
                         <td>${app.getTimeslot().getDoctor().getUser().getUserName()}</td>
                         <td>${app.getTimeslot().getStartTime()}</td>
-                        <td><a class="btn btn-info" href="video" id="anchor<%=i%>"></a></td>
+                        <td><a class="btn btn-info" href="welcome" id="anchor<%=i%>">Appointment Inactive</a></td>
                       </tr>
 			<%i++;%>
 			</c:forEach>
@@ -152,7 +160,11 @@
     		  slotIdString: slotId
 			},
     	  success: function(response){
+    		  
+    		  if(response!=""){
     		  $('#anchor1').text(response);
+    		  $('#anchor1').attr("href", "video");
+    		  }
     	  }
     	 });
     	}, 5000);

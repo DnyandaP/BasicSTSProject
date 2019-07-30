@@ -53,6 +53,7 @@ public class MedicoController {
 	public String prepLoginForm(ModelMap model,HttpSession session) {
 		model.put("user", new User());
 		model.put("doctor",new Doctor());
+		model.put("patient", new Patient());//add new
 		model.put("message",""); //so that the div for wrong password can be empty
 		model.put("message1", "");
 		return "login";//changed

@@ -25,8 +25,8 @@ public class SmsService {
 
             // Build a filter for the MessageList
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("Body", "Hello, World!"));
-            params.add(new BasicNameValuePair("To", "+919773219438")); //Add real number here
+            params.add(new BasicNameValuePair("Body", "Welcome To Medico!!\nThank you for registering.\n Have a great health with Medico."));
+            params.add(new BasicNameValuePair("To", contactNo)); //Add real number here
             params.add(new BasicNameValuePair("From", TWILIO_NUMBER));
 
             MessageFactory messageFactory = client.getAccount().getMessageFactory();

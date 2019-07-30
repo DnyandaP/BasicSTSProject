@@ -83,8 +83,7 @@ public class MedicoDaoImple implements MedicoDao {
 	}
 
 	//@Scheduled(fixedRate = 155000)
-	public void demoServiceMethod()
-    {
+	public void demoServiceMethod() {
         long millis=System.currentTimeMillis();  //current date 
         updateAppointmentBookingStatusToUnused();
         updateTimeslotStatusToUnused();

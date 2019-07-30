@@ -57,7 +57,7 @@
 								<img src="https://lh3.googleusercontent.com/8g540BSYIHps3dUywQU09dTIOs2NNLme7Pg0tUjI6KnNm2VYCVFDI_nWZ_FmNboZj4fBucya-dGY2TNjxROMh7xIOAXKQ811bEnpRlcbKB8mBsgdx0EfDFHoXRktIwudg993_XXah7VabMqYFkNmGoR_1PBK5StKHgl0eUPIWdcBmZJfuCOwxFH9g5I0t9f49TRDqsL19s3SNLr8WSgaa2QB8yB98tNp102R4Th6QjNG7IBT0lGv6hDKlO_SSf9zOWcW9bm29CZHczzjH3SCr6hmbu6S9oYR_Hzdl5LVcrNrFEq2URfPA56ZnDKj2KgOVfJSnB8l91X3e-JG39Os3Zb_r7qrxDiS6h-q780sotQGPkg53VIRhusntEP4qqg1WwjWBuDwc1mXj9X-mcSuaOtbca3uztKFFjPBV2FdjCEAbSynCqFZqhNbhlqTaEUs3WG8fxOrkGC6HAV7SnmRIX74n9cUCCwnq79WXz2VwpIfL3nBAtB_ale6Oc_Y5YoiKHcyvTDTf-FDvDRmCUWtuVuaNNNXJJxEn7bQ42VwhfuaBDNHr9NyO1o90VthXUaP_VLovVHZYb6X2dmtxlgbQ9m7K35tgyOjPMFiKpWN_HBkTsGvbTSxxhSL1wcZXvSaGRl81Nn-mGMDS-nqIFV1aMuMRZpc9gliAUd8vly8n6bK2-SmelHT6wrkP3KtVsZZDIcaS4_7FIIm7omi1vwJAcQjsQ=w650-h520-no"
 									style="width: 70%">
 								<h2 class="py-3">Sign Up Doctor</h2>
-								<p>Medico provides you with platform where you get easy access to health related requiremnets and informationp</p>
+								<p>Medico provides you with platform where you get easy access to health related requiremnets and information </p>
 							</div>
 						</div>
 					</div>
@@ -94,8 +94,8 @@
 								</div>
 								<div class="form-group col-md-6">
 									<spring:bind path="user.contactNo">
-									Contact No<input type="text" name="contactNo" autocomplete="off" required="required" class="form-control" id="Contact"
-										pattern="^[6-9]\d{9}$" title="plaease enter valid number"
+									Contact No<input type="text" name="contactNo" value="+91" autocomplete="off" required="required" class="form-control" id="Contact"
+										pattern="^[+][91]{2}[6-9]\d{9}$" title="plaease enter valid number"
 										placeholder="Contact">
 									</spring:bind>
 									<!-- ajax response -->
@@ -125,7 +125,7 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<spring:bind path="user.aadharNo">
-									Aadhar No<input id="Aadhar" name="aadharNo" required="required" placeholder="Addhar No"
+									Aadhar No<input id="Aadhar" name="aadharNo" required="required" placeholder="Aadhar No"
 										pattern=".{12}"
 										title="plaease enter valid AdharNo and no space between number"
 										class="form-control" type="number" autocomplete="off">
@@ -273,7 +273,7 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-4">
-									<input type="submit" value="Sign Up" class="btn btn-danger">
+									<input type="submit" id="signupButtonId" value="Sign Up" class="btn btn-danger">
 								</div>
 								<div class="form-group col-md-4"></div>
 								<div class="form-group col-md-4">
@@ -309,6 +309,10 @@
 				},
 				success : function(responseText) {
 					$('#ajaxResponse').text(responseText);
+					$('#signupButtonId').attr("disabled", false);
+					if(responseText !== ""){
+					$('#signupButtonId').attr("disabled", true);
+					}
 				}
 			});
 		});
@@ -322,6 +326,10 @@
 				},
 				success : function(responseText) {
 					$('#ajaxResponse2').text(responseText);
+					$('#signupButtonId').attr("disabled", false);
+					if(responseText !== ""){
+					$('#signupButtonId').attr("disabled", true);
+					}
 				}
 			});
 		});
@@ -335,6 +343,10 @@
 				},
 				success : function(responseText) {
 					$('#ajaxResponse3').text(responseText);
+					$('#signupButtonId').attr("disabled", false);
+					if(responseText !== ""){
+					$('#signupButtonId').attr("disabled", true);
+					}
 				}
 			});
 		});

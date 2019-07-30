@@ -37,6 +37,7 @@ import com.team.medico.model.User;
 import com.team.medico.service.EmailServiceImple;
 import com.team.medico.service.GenerateToken;
 import com.team.medico.service.MedicoService;
+import com.team.medico.service.SmsService;
 
 @Controller
 public class DoctorController {
@@ -46,6 +47,9 @@ public class DoctorController {
 	
 	@Autowired
 	public EmailServiceImple emailService;
+	
+	@Autowired
+	public SmsService sms;
 	
 	@Autowired
 	public GenerateToken gen;
@@ -187,8 +191,8 @@ public class DoctorController {
 			user.setUserType("doctor");
 			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 			medService.insertDoctor(doctor,user);
-			emailService.sendSimpleMessage(user.getEmailId(), "Welcome To Medico", "Thank you for registering");
-			
+			emailService.sendSimpleMessage(user.getEmailId(), "Welcome To Medico", "Thank you for registering.\n\nYour Email Id: "+user.getEmailId()+"\nPassword: "+user.getPassword());
+			sms.sendSMS(user.getContactNo());
 			model.put("user", new User());
 			model.put("doctor",new Doctor());
 			
