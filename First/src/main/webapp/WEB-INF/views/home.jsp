@@ -131,20 +131,21 @@
 									Disease disease=(Disease)request.getAttribute("diseaseResult");
 									if(disease!=null)
 									{
-										
 									%>
-										<h6><%=disease.getDiseaseName().toUpperCase() %></h6>
-										<h6><%=disease.getDescription() %></h6>
+										<br/><br/>
+										<h5 class="text-info"><%=disease.getDiseaseName().toUpperCase() %></h5>
+										<p class="text-info"><%=disease.getDescription() %></p>
+										<br/><br/>
+										<p class="text-danger">
+                  							The information on this site is not intended or implied to be a substitute for professional medical advice, diagnosis or treatment.
+                  						</p>
 									<%}
 									%>
 							
                       </div>
                   </spr:form>
                   <div>
-                  	<h6 class="text-danger">
-                  		The information on this site is not intended or implied to be a substitute for professional medical advice, diagnosis or treatment. All content, including text, graphics, images and information, contained on or available through this web site is for general information purposes only.
-                  		
-                  	</h6>
+                  	
                   </div>
               </div>
           </div>

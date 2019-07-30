@@ -178,7 +178,7 @@ public class PatientController {
 			model.put("user", new User());
 			return "login";
 		}
-		
+		//ajax
 		@RequestMapping(value="/getDoctorList")
 		@ResponseBody
 		public String doctorSpecList(ModelMap model,HttpSession session,@RequestParam String spec) throws Exception{ //to get doctor list on spec

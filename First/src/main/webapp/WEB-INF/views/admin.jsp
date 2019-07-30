@@ -319,7 +319,7 @@ table tbody tr:nth-child(odd) {
 											
 										}
 										else{ 
-							%><tr><td>No Doctor is Pending</td></tr>
+							%><tr><td>No Approved Doctor</td></tr>
 
 							<%}%>
 										</tbody>

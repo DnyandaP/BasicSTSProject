@@ -41,7 +41,7 @@ public class MedicoDaoImple implements MedicoDao {
 	@Override
 	public boolean validateUser(User user) {
 
-		System.out.println(user.getPassword());
+	
 		Session session = this.sessionFactory.openSession();
 		User user1 = (User) session.get(User.class, user.getEmailId());
 		session.close();
@@ -78,7 +78,7 @@ public class MedicoDaoImple implements MedicoDao {
 		session.close();
 	}
 
-	// @Scheduled(fixedRate = 155000)
+	//@Scheduled(fixedRate = 86400000)
 	public void demoServiceMethod() {
 		long millis = System.currentTimeMillis(); // current date
 		updateAppointmentBookingStatusToUnused();
@@ -523,21 +523,12 @@ public class MedicoDaoImple implements MedicoDao {
 			}
 		}
 
-		System.out.println(max.getKey());
 
 		Session session1 = this.sessionFactory.openSession();
 		Disease d1 = (Disease) session1.get(Disease.class, max.getKey());
 
-		Disease diseaseResult = new Disease();
-		for (Symptoms si : symptomList) {
-			for (Disease d : si.getDisease()) {
-				if (d.getDiseaseId() == max.getKey()) {
-					diseaseResult = d;
-				}
-			}
-		}
+		
 
-		System.out.println("result" + d1.getDiseaseId() + "name" + d1.getDiseaseName());
 		session1.close();
 		return d1;
 	}
