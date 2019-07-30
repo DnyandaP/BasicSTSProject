@@ -6,20 +6,18 @@ import java.util.List;
 
 import com.team.medico.model.Admin;
 import com.team.medico.model.AppointmentBooking;
+import com.team.medico.model.Disease;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Symptoms;
 import com.team.medico.model.Timeslot;
 import com.team.medico.model.User;
 
 
 
 public interface MedicoService {
-	// public void createUser(User user);
-	// public void removeUser(int userId);
-	// public void modifyUser(User user);
-	// public List<User> selectAllUsers();
 	public boolean checkUser(User user);
 	public void insertTokenToAppointment(String token,int slotId);
 	public boolean checkToken(int slotId);
@@ -30,13 +28,15 @@ public interface MedicoService {
 	public Patient getPatientById(String emailId);
 
 	public User getUser(String emailId);
-
+	public List<Symptoms> showSymptoms();
+	public Disease getDetails(int []syList);
 	public void insertPatient(Patient patient, User user, History history);
 	
 	public void insertPatientSignUp(User user );
 	
 	public boolean aadharExist(double aadhar);
 	public boolean contactExist(String contact);
+	public List<User> getUserPatient();
 	
 
 	public PreferredLanguage getLanguage(String languageId);
@@ -57,7 +57,7 @@ public interface MedicoService {
 	
 	public Timeslot getTimeSlotById(int slotId);
 	public List<Doctor> selectAllDoctor();
-	public List<Patient> selectAllPatient();
+	public List<User> selectAllUser();
 	public Doctor selectDoctor1(String email);
 
 	public Doctor approveDoctor(String email);

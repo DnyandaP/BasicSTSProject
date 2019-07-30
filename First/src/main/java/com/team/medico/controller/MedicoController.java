@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.medico.model.Disease;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Symptoms;
 import com.team.medico.model.User;
 import com.team.medico.service.MedicoService;
 
@@ -32,6 +34,9 @@ public class MedicoController {
 	//symptoms pages i.e. home page
 	@RequestMapping(value = "/")
 	public String home(ModelMap model) {
+		List<Symptoms> symptomList=userService.showSymptoms();
+		model.addAttribute("symptomsList", symptomList);
+		model.addAttribute("symptom", new Symptoms());
 		return "home";
 	}
 	
@@ -132,6 +137,30 @@ public class MedicoController {
 			return "Aadhar Number already registered";
 		}
 		return "";
+	}
+	
+	@RequestMapping(value = "/symptomSearch.htm")
+	public String symptomList(ModelMap model) {
+		List<Symptoms> symptomList=userService.showSymptoms();
+		model.addAttribute("symptomsList", symptomList);
+		model.addAttribute("symptom", new Symptoms());
+		return "symptom_search";
+	}
+
+	@RequestMapping(value = "/searchResult")
+	public String symptomList1(@RequestParam String[] SymptomsId, ModelMap model) {
+		int[] sympId = new int[SymptomsId.length];
+		for (int i = 0; i < SymptomsId.length; i++) {
+			sympId[i] = Integer.parseInt(SymptomsId[i]);
+		}
+
+		Disease disease=userService.getDetails(sympId);
+		model.addAttribute("diseaseResult", disease);
+		List<Symptoms> symptomList=userService.showSymptoms();
+		model.addAttribute("symptomsList", symptomList);
+		model.addAttribute("symptom", new Symptoms());
+		System.out.println("controller"+disease.getDiseaseName());
+		return "home";
 	}
 	
 }

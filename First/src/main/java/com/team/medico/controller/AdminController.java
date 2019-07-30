@@ -33,10 +33,13 @@ public class AdminController {
 		@RequestMapping(value="/welcomeAdmin")
 		public String welcomeAdmin(User user, Doctor doctor, ModelMap model) throws IOException {
 			List<Doctor> doctorList = medService.selectAllDoctor();
-			List<Patient> patientList = medService.selectAllPatient();
-
+			List<User> userList = medService.getUserPatient();
+			for(User u : userList) {
+				System.out.println(u);
+			}
+			
 			model.put("doctorList", doctorList);
-			model.put("patientList", patientList);
+			model.put("userList", userList);
 
 			return "admin";
 

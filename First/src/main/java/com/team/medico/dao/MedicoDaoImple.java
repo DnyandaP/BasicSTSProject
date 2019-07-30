@@ -1,11 +1,11 @@
 package com.team.medico.dao;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -18,15 +18,14 @@ import org.springframework.stereotype.Repository;
 
 import com.team.medico.model.Admin;
 import com.team.medico.model.AppointmentBooking;
+import com.team.medico.model.Disease;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Symptoms;
 import com.team.medico.model.Timeslot;
 import com.team.medico.model.User;
-
-
-
 
 @Repository
 public class MedicoDaoImple implements MedicoDao {
@@ -34,36 +33,33 @@ public class MedicoDaoImple implements MedicoDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-    
-	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean validateUser(User user) {
-		
+
 		System.out.println(user.getPassword());
 		Session session = this.sessionFactory.openSession();
-		User user1 = (User)session.get(User.class,user.getEmailId());
+		User user1 = (User) session.get(User.class, user.getEmailId());
 		session.close();
-		
+
 		if (BCrypt.checkpw(user.getPassword(), user1.getPassword())) {
 			return true;
 		}
 		return false;
 	}
-	
-	
+
 	@Override
 	public User getUserByEmailId(String emailId) {
 		Session session = this.sessionFactory.openSession();
-		User user = (User)session.get(User.class,emailId);
+		User user = (User) session.get(User.class, emailId);
 		session.close();
 		return user;
 	}
-	
+
 	@Override
 	public void savePatient(final Patient patient) {
 		Session session = this.sessionFactory.openSession();
@@ -72,7 +68,7 @@ public class MedicoDaoImple implements MedicoDao {
 		tx.commit();
 		session.close();
 	}
-	
+
 	@Override
 	public void saveUser(final User user) {
 		Session session = this.sessionFactory.openSession();
@@ -82,12 +78,12 @@ public class MedicoDaoImple implements MedicoDao {
 		session.close();
 	}
 
-	//@Scheduled(fixedRate = 155000)
+	// @Scheduled(fixedRate = 155000)
 	public void demoServiceMethod() {
-        long millis=System.currentTimeMillis();  //current date 
-        updateAppointmentBookingStatusToUnused();
-        updateTimeslotStatusToUnused();
-		List<Doctor> docList = getApprovedDoctor();//fetching all approved doctor
+		long millis = System.currentTimeMillis(); // current date
+		updateAppointmentBookingStatusToUnused();
+		updateTimeslotStatusToUnused();
+		List<Doctor> docList = getApprovedDoctor();// fetching all approved doctor
 		if (docList != null) {
 			for (Doctor doc : docList) {
 
@@ -97,11 +93,12 @@ public class MedicoDaoImple implements MedicoDao {
 				int str = Integer.parseInt(arrOfStr[0]);
 				String[] arrOfStr1 = endTime.split(":", 2);
 				int end = Integer.parseInt(arrOfStr1[0]);
-				while (str < end) { //inserting each time slots to db
+				while (str < end) { // inserting each time slots to db
 					String str1 = str + ":" + arrOfStr[1];
 					str++;
 					String str2 = str + ":" + arrOfStr[1];
-					Timeslot ts = new Timeslot(doc.getEmailId(), str1, str2, new java.sql.Date(millis), "unbooked", doc);
+					Timeslot ts = new Timeslot(doc.getEmailId(), str1, str2, new java.sql.Date(millis), "unbooked",
+							doc);
 					Session session = this.sessionFactory.openSession();
 					Transaction tx = session.beginTransaction();
 
@@ -109,24 +106,22 @@ public class MedicoDaoImple implements MedicoDao {
 					tx.commit();
 					session.close();
 				}
-        		
-        	}
-        }
-       
-    }
 
-	
+			}
+		}
+
+	}
 
 	@Override
 	public PreferredLanguage getLanguageById(String languageId) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		PreferredLanguage preferredLanguage = (PreferredLanguage)session.get(PreferredLanguage.class,languageId);
+		PreferredLanguage preferredLanguage = (PreferredLanguage) session.get(PreferredLanguage.class, languageId);
 		tx.commit();
 		session.close();
 		return preferredLanguage;
 	}
-	
+
 	public void savePref(PreferredLanguage preferredLanguage) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -139,15 +134,13 @@ public class MedicoDaoImple implements MedicoDao {
 	public void insertDoctor(Doctor doctor, User user) {
 		Session session = this.sessionFactory.openSession();
 		Transaction t = session.beginTransaction();
-				
-				session.save(user);
-				session.save(doctor);
-				t.commit();
-				session.close();
-		
+
+		session.save(user);
+		session.save(doctor);
+		t.commit();
+		session.close();
+
 	}
-
-
 
 	@Override
 	public void saveHistory(History history) {
@@ -158,10 +151,6 @@ public class MedicoDaoImple implements MedicoDao {
 		session.close();
 	}
 
-
-
-
-
 	@Override
 	public void saveAdmin(Admin admin) {
 		Session session = this.sessionFactory.openSession();
@@ -170,20 +159,16 @@ public class MedicoDaoImple implements MedicoDao {
 		session.save(admin);
 		tx.commit();
 		session.close();
-		
+
 	}
-
-
 
 	@Override
 	public Doctor getDoctorByEmailId(String emailId) {
 		Session session = this.sessionFactory.openSession();
-		Doctor doctor = (Doctor)session.get(Doctor.class,emailId);
+		Doctor doctor = (Doctor) session.get(Doctor.class, emailId);
 		session.close();
 		return doctor;
 	}
-
-
 
 	@Override
 	public boolean aadharExist(double aadhar) {
@@ -192,13 +177,11 @@ public class MedicoDaoImple implements MedicoDao {
 		q.setDouble(0, aadhar);
 		List<User> userList = q.list();
 		session.close();
-		if(!userList.isEmpty()) {
+		if (!userList.isEmpty()) {
 			return true;
 		}
 		return false;
 	}
-
-
 
 	@Override
 	public boolean contactExist(String contact) {
@@ -207,23 +190,19 @@ public class MedicoDaoImple implements MedicoDao {
 		q.setString(0, contact);
 		List<User> userList = q.list();
 		session.close();
-		if(!userList.isEmpty()) {
+		if (!userList.isEmpty()) {
 			return true;
 		}
 		return false;
 	}
 
-
-
 	@Override
 	public Patient getPatientByEmailId(String emailId) {
 		Session session = this.sessionFactory.openSession();
-		Patient patient = (Patient)session.get(Patient.class,emailId);
+		Patient patient = (Patient) session.get(Patient.class, emailId);
 		session.close();
 		return patient;
 	}
-
-
 
 	@Override
 	public List<Doctor> getApprovedDoctor() {
@@ -234,8 +213,6 @@ public class MedicoDaoImple implements MedicoDao {
 		session.close();
 		return docList;
 	}
-
-
 
 	@Override
 	public List<Timeslot> getBookedTimeSlots(String emailId) {
@@ -248,8 +225,6 @@ public class MedicoDaoImple implements MedicoDao {
 		return timeSlotList;
 	}
 
-
-
 	@Override
 	public List<AppointmentBooking> getBookedAppointment(String emailId) {
 		List<AppointmentBooking> appList = new ArrayList<AppointmentBooking>();
@@ -258,90 +233,76 @@ public class MedicoDaoImple implements MedicoDao {
 		q.setString(0, "booked");
 		q.setString(1, emailId);
 		List<Timeslot> timeSlotList = q.list();
-		for(Timeslot slot : timeSlotList ) {
-			AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class,slot.getSlotId());
-			if(app!=null) {
+		for (Timeslot slot : timeSlotList) {
+			AppointmentBooking app = (AppointmentBooking) session.get(AppointmentBooking.class, slot.getSlotId());
+			if (app != null) {
 				appList.add(app);
 			}
 		}
-		
+
 		session.close();
 		return appList;
 	}
 
-
-
 	@Override
 	public Timeslot getTimeSlotById(int slotId) {
 		Session session = this.sessionFactory.openSession();
-		Timeslot timeslot = (Timeslot)session.get(Timeslot.class,slotId);
+		Timeslot timeslot = (Timeslot) session.get(Timeslot.class, slotId);
 		session.close();
 		return timeslot;
 	}
 
-
-
 	@Override
-	public void insertTokenToAppointment(String token,int slotId) {
+	public void insertTokenToAppointment(String token, int slotId) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class, slotId);
+		AppointmentBooking app = (AppointmentBooking) session.get(AppointmentBooking.class, slotId);
 		app.setToken(token);
 		session.save(app);
 		tx.commit();
-		session.close();	
+		session.close();
 	}
-
-
 
 	@Override
 	public boolean checkToken(int slotId) {
 		Session session = this.sessionFactory.openSession();
-		AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class, slotId);
+		AppointmentBooking app = (AppointmentBooking) session.get(AppointmentBooking.class, slotId);
 		session.close();
-		if(app.getToken()!=null) {
+		if (app.getToken() != null) {
 			return true;
 		}
 		return false;
 	}
 
-
-
 	@Override
 	public String getToken(int slotId) {
 		Session session = this.sessionFactory.openSession();
-		AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class, slotId);
+		AppointmentBooking app = (AppointmentBooking) session.get(AppointmentBooking.class, slotId);
 		session.close();
 		return app.getToken();
 	}
-
-
 
 	@Override
 	public void updateTimeSlotStatus(int slotId) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		Timeslot timeslot = (Timeslot)session.get(Timeslot.class,slotId);
+		Timeslot timeslot = (Timeslot) session.get(Timeslot.class, slotId);
 		timeslot.setTimeSlotStatus("completed");
 		session.save(timeslot);
 		tx.commit();
 		session.close();
 	}
 
-
-
 	@Override
 	public void updateAppointmentBookingStatus(int slotId) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		AppointmentBooking app = (AppointmentBooking)session.get(AppointmentBooking.class, slotId);
+		AppointmentBooking app = (AppointmentBooking) session.get(AppointmentBooking.class, slotId);
 		app.setStatus("completed");
 		session.save(app);
 		tx.commit();
 		session.close();
 	}
-
-
 
 	@Override
 	public List<AppointmentBooking> getBookedAppointmentForPat(String emailId) {
@@ -355,8 +316,6 @@ public class MedicoDaoImple implements MedicoDao {
 		return appList;
 	}
 
-
-
 	@Override
 	public void updateAppointmentBookingStatusToUnused() {
 		Session session = this.sessionFactory.openSession();
@@ -364,15 +323,13 @@ public class MedicoDaoImple implements MedicoDao {
 		Query q = session.createQuery("from AppointmentBooking where status=?");
 		q.setString(0, "unbooked");
 		List<AppointmentBooking> appList = q.list();
-		for(AppointmentBooking appointment : appList) {
+		for (AppointmentBooking appointment : appList) {
 			appointment.setStatus("unused");
 			session.save(appointment);
-		}	
+		}
 		tx.commit();
 		session.close();
 	}
-
-
 
 	@Override
 	public void updateTimeslotStatusToUnused() {
@@ -381,10 +338,10 @@ public class MedicoDaoImple implements MedicoDao {
 		Query q = session.createQuery("from Timeslot where timeSlotStatus=?");
 		q.setString(0, "unbooked");
 		List<Timeslot> slotList = q.list();
-		for(Timeslot slot : slotList) {
+		for (Timeslot slot : slotList) {
 			slot.setTimeSlotStatus("unused");
 			session.save(slot);
-		}	
+		}
 		tx.commit();
 		session.close();
 	}
@@ -395,7 +352,7 @@ public class MedicoDaoImple implements MedicoDao {
 		Query q = session.createQuery("from Doctor");
 		List<Doctor> doctorList = q.list();
 		session.close();
-		if(!doctorList.isEmpty()) {
+		if (!doctorList.isEmpty()) {
 			return doctorList;
 		}
 		return null;
@@ -407,28 +364,26 @@ public class MedicoDaoImple implements MedicoDao {
 		Query q = session.createQuery("from Doctor where email_id=?");
 		q.setString(0, email);
 		q.setMaxResults(1);
-		Doctor doctor =(Doctor) q.uniqueResult();
-		
+		Doctor doctor = (Doctor) q.uniqueResult();
+
 		session.close();
-		if(doctor!=null) {
+		if (doctor != null) {
 			return doctor;
 		}
 		return null;
 	}
 
-
 	@Override
-	public List<Patient> getAllPatient() {
+	public List<User> getAllUser() {
 		Session session = this.sessionFactory.openSession();
-		Query q = session.createQuery("from Patient");
-		List<Patient> patientList = q.list();
+		Query q = session.createQuery("from User");
+		List<User> userList = q.list();
 		session.close();
-		if(!patientList.isEmpty()) {
-			return patientList;
+		if (!userList.isEmpty()) {
+			return userList;
 		}
-		return null;
+		return userList;
 	}
-
 
 	@Override
 	public Doctor approveDoctor(String email) {
@@ -436,11 +391,10 @@ public class MedicoDaoImple implements MedicoDao {
 		Query q = session.createQuery("update Doctor set status='Approved' where emailId=?");
 		q.setParameter(0, email);
 		int count = q.executeUpdate();
-		
-		
+
 		session.close();
-		if(count > 0) {
-			
+		if (count > 0) {
+
 			return null;
 		}
 		return null;
@@ -453,15 +407,19 @@ public class MedicoDaoImple implements MedicoDao {
 		q.setBoolean(0, false);
 		q.setParameter(1, email);
 		int count = q.executeUpdate();
-		
+
+		Query q1 = session.createQuery("update Doctor set status=? where emailId=?");
+		q1.setString(0, "deleted");
+		q1.setParameter(1, email);
+		int count1 = q1.executeUpdate();
 		session.close();
-		if(count > 0) {
-			
+		if (count > 0) {
+
 			return null;
 		}
 		return null;
 	}
-	
+
 	@Override
 	public List<Doctor> getApprovedDoctorSpec(String spec) {
 		Session session = this.sessionFactory.openSession();
@@ -472,8 +430,6 @@ public class MedicoDaoImple implements MedicoDao {
 		session.close();
 		return docListSpec;
 	}
-
-
 
 	@Override
 	public List<Timeslot> getTimeSlotOfDoctor(String emailId) {
@@ -486,37 +442,107 @@ public class MedicoDaoImple implements MedicoDao {
 		return timeList;
 	}
 
-
-
 	@Override
 	public void updateTimeSlotUpdateToBooked(int slotId) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		Timeslot timeslot =(Timeslot) session.get(Timeslot.class, slotId);
+		Timeslot timeslot = (Timeslot) session.get(Timeslot.class, slotId);
 		timeslot.setTimeSlotStatus("booked");
 		session.save(timeslot);
 		tx.commit();
 		session.close();
 	}
 
-
-
 	@Override
 	public void insertIntoAppointmentBooking(int slotId, String emailId) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		Timeslot timeslot =(Timeslot) session.get(Timeslot.class, slotId);
+		Timeslot timeslot = (Timeslot) session.get(Timeslot.class, slotId);
 		Patient patient = (Patient) session.get(Patient.class, emailId);
 		AppointmentBooking app = new AppointmentBooking(slotId, emailId, "booked", patient, timeslot);
 		session.save(app);
 		tx.commit();
 		session.close();
-		
-	}
-	
-}
 
-	
+	}
+
+	@Override
+	public List<User> getUserPatient() {
+		Session session = this.sessionFactory.openSession();
+		Query q = session.createQuery("from User where userType=?");
+		q.setString(0, "patient");
+		List<User> userList = q.list();
+		session.close();
+		return userList;
+	}
+
+	@Override
+	public List<Symptoms> showSymtoms() {
+		Session session = this.sessionFactory.openSession();
+
+		Query q = session.createQuery("from Symptoms");
+		List<Symptoms> symptomsList = q.list();
+
+		return symptomsList;
+	}
+
+	@Override
+	public Disease getDetails(int[] syList) {
+		Session session = this.sessionFactory.openSession();
+		List<Integer> newList = new ArrayList<Integer>();
+
+		for (Integer s : syList) {
+			newList.add(s);
+		}
+
+		Query q = session.createQuery("from Symptoms where symptomsId in (:list)").setParameterList("list", newList);
+
+		List<Symptoms> symptomList = q.list();
+
+		List<Integer> disList = new ArrayList<Integer>();
+		for (Symptoms si : symptomList) {
+			Set<Disease> disease = si.getDisease();
+			for (Disease d : disease) {
+				disList.add(d.getDiseaseId());
+			}
+		}
+
+		// hashmap to store the frequency of element
+		Map<Integer, Integer> hm = new TreeMap<Integer, Integer>();
+
+		for (Integer disId : disList) {
+			Integer count = hm.get(disId);
+			hm.put(disId, (count == null) ? 1 : count + 1);
+		}
+
+		Map.Entry<Integer, Integer> max = null;
+		// displaying the occurrence of elements in the arraylist
+		for (Map.Entry<Integer, Integer> val : hm.entrySet()) {
+			if (max == null || val.getValue().compareTo(max.getValue()) > 0) {
+				max = val;
+			}
+		}
+
+		System.out.println(max.getKey());
+
+		Session session1 = this.sessionFactory.openSession();
+		Disease d1 = (Disease) session1.get(Disease.class, max.getKey());
+
+		Disease diseaseResult = new Disease();
+		for (Symptoms si : symptomList) {
+			for (Disease d : si.getDisease()) {
+				if (d.getDiseaseId() == max.getKey()) {
+					diseaseResult = d;
+				}
+			}
+		}
+
+		System.out.println("result" + d1.getDiseaseId() + "name" + d1.getDiseaseName());
+		session1.close();
+		return d1;
+	}
+
+}
 
 //@Transactional
 //@Repository
@@ -553,4 +579,3 @@ public class MedicoDaoImple implements MedicoDao {
 //	
 //	
 //}
-

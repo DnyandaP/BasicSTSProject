@@ -1,4 +1,8 @@
+<%@page import="com.team.medico.model.Disease"%>
 <%@page import="com.team.medico.model.User"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="spr"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -103,52 +107,45 @@
                   </div>
               </div>
               <div class="col-md-8 py-5 border">
-                  <h4 class="pb-4">Please fill with your details</h4>
-                  <form>
+                  <h4 class="pb-4">Symptoms Checker</h4>
+                  <spr:form action="searchResult" modelAttribute="symptom">
                       <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <input id="Full Name" name="Full Name" placeholder="Full Name" class="form-control" type="text">
-                          </div>
-                          <div class="form-group col-md-6">
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                          </div>
-                        </div>
-                      <div class="form-row">
-                          <div class="form-group col-md-6">
-                              <input id="Mobile No." name="Mobile No." placeholder="Mobile No." class="form-control" required="required" type="text">
-                          </div>
-                          <div class="form-group col-md-6">
-                                    
-                                    <select id="inputState" class="form-control">
-                                      <option selected>Choose ...</option>
-                                      <option> New Buyer</option>
-                                      <option> Auction</option>
-                                      <option> Complaint</option>
-                                      <option> Feedback</option>
-                                    </select>
-                          </div>
                           <div class="form-group col-md-12">
-                                    <textarea id="comment" name="comment" cols="40" rows="5" class="form-control"></textarea>
+                                    
+                                <s:bind path="symptom.SymptomsId">
+								<spr:select path="SymptomsId" multiple="multiple">
+									<c:forEach items="${symptomsList}" var="symp">
+										<spr:option value="${symp.getSymptomsId()}">${symp.getSymptomsName()}</spr:option>
+									</c:forEach>
+								</spr:select>
+								</s:bind>
                           </div>
+                          
                       </div>
                       <div class="form-row">
-                          <div class="form-group">
-                              <div class="form-group">
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                                    <label class="form-check-label" for="invalidCheck2">
-                                      <small>By clicking Submit, you agree to our Terms & Conditions, Visitor Agreement and Privacy Policy.</small>
-                                    </label>
-                                  </div>
-                                </div>
-                      
-                            </div>
+                          <button type="submit"   class="btn btn-danger">Search</button>
                       </div>
-                      
-                      <div class="form-row">
-                          <button type="button" class="btn btn-danger">Submit</button>
+					  <div  id="Checkar1" class="form-group col-md-12" style="">
+                            		
+									<%
+									Disease disease=(Disease)request.getAttribute("diseaseResult");
+									if(disease!=null)
+									{
+										
+									%>
+										<h6><%=disease.getDiseaseName().toUpperCase() %></h6>
+										<h6><%=disease.getDescription() %></h6>
+									<%}
+									%>
+							
                       </div>
-                  </form>
+                  </spr:form>
+                  <div>
+                  	<h6 class="text-danger">
+                  		The information on this site is not intended or implied to be a substitute for professional medical advice, diagnosis or treatment. All content, including text, graphics, images and information, contained on or available through this web site is for general information purposes only.
+                  		
+                  	</h6>
+                  </div>
               </div>
           </div>
       </div>

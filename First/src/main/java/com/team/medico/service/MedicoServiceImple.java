@@ -10,38 +10,38 @@ import org.springframework.stereotype.Service;
 import com.team.medico.dao.MedicoDao;
 import com.team.medico.model.Admin;
 import com.team.medico.model.AppointmentBooking;
+import com.team.medico.model.Disease;
 import com.team.medico.model.Doctor;
 import com.team.medico.model.History;
 import com.team.medico.model.Patient;
 import com.team.medico.model.PreferredLanguage;
+import com.team.medico.model.Symptoms;
 import com.team.medico.model.Timeslot;
 import com.team.medico.model.User;
 
 @Service
 public class MedicoServiceImple implements MedicoService {
-	
+
 	@Autowired
 	private MedicoDao medDao;
-	
+
 	@Override
 	public boolean checkUser(User user) {
 		return medDao.validateUser(user);
 	}
-	
+
 	@Override
 	public User getUser(String emailId) {
 		return medDao.getUserByEmailId(emailId);
 	}
-	
+
 	@Override
 	public void insertDoctor(Doctor doctor, User user) {
 		medDao.insertDoctor(doctor, user);
 	}
 
-	
-
 	@Override
-	public void insertPatient(Patient patient, User user,History history) {
+	public void insertPatient(Patient patient, User user, History history) {
 		medDao.saveUser(user);
 		medDao.savePatient(patient);
 		medDao.saveHistory(history);
@@ -50,20 +50,20 @@ public class MedicoServiceImple implements MedicoService {
 	@Override
 	public PreferredLanguage getLanguage(String languageId) {
 		return medDao.getLanguageById(languageId);
-		
+
 	}
 
 	@Override
 	public void insertAdmin(Admin admin, User user) {
 		medDao.saveUser(user);
 		medDao.saveAdmin(admin);
-		
+
 	}
 
 	@Override
 	public void insertPatientSignUp(User user) {
 		medDao.saveUser(user);
-		
+
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class MedicoServiceImple implements MedicoService {
 
 	@Override
 	public List<Timeslot> getBookedTimeSlotOfDoctor(String emailId) {
-		
+
 		return medDao.getBookedTimeSlots(emailId);
 	}
 
@@ -116,18 +116,18 @@ public class MedicoServiceImple implements MedicoService {
 	@Override
 	public void insertTokenToAppointment(String token, int slotId) {
 		medDao.insertTokenToAppointment(token, slotId);
-		
+
 	}
 
 	@Override
 	public boolean checkToken(int slotId) {
-		
+
 		return medDao.checkToken(slotId);
 	}
 
 	@Override
 	public String getTokenFromAppointment(int slotId) {
-		
+
 		return medDao.getToken(slotId);
 	}
 
@@ -139,22 +139,23 @@ public class MedicoServiceImple implements MedicoService {
 
 	@Override
 	public List<AppointmentBooking> getBookedAppointmentForPat(String emailId) {
-		
+
 		return medDao.getBookedAppointmentForPat(emailId);
 	}
+
 	@Override
 	public List<Doctor> selectAllDoctor() {
 		return medDao.getAllDoctor();
 	}
-	
+
 	@Override
 	public Doctor selectDoctor1(String email) {
 		return medDao.getDoctor1(email);
 	}
 
 	@Override
-	public List<Patient> selectAllPatient() {
-		return medDao.getAllPatient();
+	public List<User> selectAllUser() {
+		return medDao.getAllUser();
 	}
 
 	@Override
@@ -166,6 +167,7 @@ public class MedicoServiceImple implements MedicoService {
 	public Doctor delteDoctor(String email) {
 		return medDao.deleteDoctor(email);
 	}
+
 	@Override
 	public List<Doctor> getApprovedDoctorSpec(String spec) {
 		return medDao.getApprovedDoctorSpec(spec);
@@ -184,14 +186,29 @@ public class MedicoServiceImple implements MedicoService {
 	@Override
 	public void insertIntoAppointmentBooking(int slotId, String emailId) {
 		medDao.insertIntoAppointmentBooking(slotId, emailId);
-		
+
 	}
 
 	@Override
 	public Patient getPatientById(String emailId) {
-		
+
 		return medDao.getPatientByEmailId(emailId);
 	}
-	
+
+	@Override
+	public List<User> getUserPatient() {
+
+		return medDao.getUserPatient();
+	}
+
+	@Override
+	public List<Symptoms> showSymptoms() {
+		return medDao.showSymtoms();
+	}
+
+	@Override
+	public Disease getDetails(int[] syList) {
+		return medDao.getDetails(syList);
+	}
 
 }

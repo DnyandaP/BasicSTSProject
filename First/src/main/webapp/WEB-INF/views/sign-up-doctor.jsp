@@ -163,7 +163,7 @@
 								</div>
 								<div class="form-group col-md-6">
 									<spring:bind path="uploadFile.fileDegree">
-									Degree Image<input id="DegreeImg" name="fileDegree"  accept=".pdf|image/*" required="required" placeholder="Degree"
+									Degree Image<input id="DegreeImg" name="fileDegree"  accept="image/*" required="required" placeholder="Degree"
 										class="form-control" autocomplete="off" type="file"><!-- changed  from file to text required removed required="required" -->
 									</spring:bind>
 								</div>
@@ -177,7 +177,7 @@
 								</div>
 								<div class="form-group col-md-6">
 									<spring:bind path="uploadFile.fileLicense">
-									License Image<input id="LicenseImg" name="fileLicense" accept=".pdf|image/*" required="required" placeholder="License"
+									License Image<input id="LicenseImg" name="fileLicense" accept="image/*" required="required" placeholder="License"
 										class="form-control" autocomplete="off" type="file"><!-- changed  from file to text required removed required="required" -->
 									</spring:bind>
 								</div>
@@ -351,6 +351,7 @@
 			});
 		});
 	});
+	
 	</script>
 	
 	 <!-- Bootstrap core JavaScript -->

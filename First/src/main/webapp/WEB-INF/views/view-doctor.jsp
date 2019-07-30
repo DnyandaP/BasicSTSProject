@@ -121,9 +121,11 @@ captionText.innerHTML = "click here";}
               </button>
               <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                  
                   <li class="nav-item">
-                    <a class="nav-link" href="login.html">Logout</a>
+                    			<a class="nav-link" href="welcomeAdmin">Back</a>
+                  			</li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="logut">Logout</a>
                   </li> 
                 </ul>
               </div>
@@ -164,15 +166,16 @@ captionText.innerHTML = "click here";}
                                     <div class="form-group col-md-6">
                                             CurrentPost<input  value="<%=doctor.getCurrentPost() %>" type="text" class="form-control" id="CurrentPost" placeholder="CurrentPost" readonly>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                                Awards<input  value="<%=doctor.getAwards() %>" type="text" class="form-control" id="Awards" placeholder="Awards" readonly>
+                                   </div>
                                   </div>
 
                                   <div class="form-row">
                                         <div class="form-group col-md-6">
                                                 Specialization<input  value="<%=doctor.getSpecialization() %>" id="Specialization" name="Specialization" placeholder="Specialization" class="form-control" type="text" readonly>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                                Awards<input  value="<%=doctor.getAwards() %>" type="text" class="form-control" id="Awards" placeholder="Awards" readonly>
-                                        </div>
+                                        
                                   </div>
 
                                   <div class="form-row">
@@ -209,8 +212,11 @@ captionText.innerHTML = "click here";}
 
                               <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <a  href="approve_doctor?email=<%=doctor.getEmailId() %>" ><button type="button" class="btn btn-primary">Approve</button></a>
-                                      <a  href="delete_doctor?email=<%=doctor.getEmailId() %>" ><button type="button" class="btn btn-danger">Delete</button></a>
+                                  
+                                  <% if(doctor.getStatus().equals("Approved")!=true){ %>
+                                    <a  href="approve_doctor?email=<%=doctor.getEmailId() %>" ><button type="button" class="btn btn-primary" onclick="my1()">Approve</button></a>
+                                     
+                                     <%} %>   <a  href="delete_doctor?email=<%=doctor.getEmailId() %>" ><button type="button" class="btn btn-danger">Delete</button></a>
                               </div>
                                
                             </div>
@@ -261,6 +267,10 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() { 
   modal.style.display = "none";
+}
+
+function my1(){
+	alert("Successfully Approved ");
 }
 </script>
 </body>

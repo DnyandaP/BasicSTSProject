@@ -148,6 +148,9 @@ table tbody tr:nth-child(odd) {
 					</button>
 					<div class="collapse navbar-collapse" id="navbarResponsive">
 						<ul class="navbar-nav ml-auto">
+							<li class="nav-item">
+                    			<a class="nav-link" href="welcomeAdmin">Back</a>
+                  			</li>
 							<li class="nav-item"><a class="nav-link" href="logout">Logout</a>
 							</li>
 						</ul>
@@ -180,22 +183,24 @@ table tbody tr:nth-child(odd) {
 
 
 
-				<div id="di1" class="main1"
+<div id="di1" class="main1"
 					style="display: none; margin-left: 40%; margin-top: 10%;">
 					
 					 
 				<%				List<Doctor> doctorList1 = (List<Doctor>)request.getAttribute("doctorList"); 
 				
- 								List<Patient> patientList1 = (List<Patient>)request.getAttribute("patientList"); 
+ 								List<User> userList = (List<User>)request.getAttribute("userList"); 
 				
-								if(patientList1!=null || doctorList1!=null){ 
+								if(userList!=null || doctorList1!=null){ 
 							%>
+							
 							<table class="table">
 								<thead class="bg-info text-black">
 									<tr>
-										<th scope="col">Sr No</th>
+										<th scope="col">Sr.No</th>
 										<th scope="col">Name</th>
-										<th scope="col">Contact No</th>
+										<th scope="col">Contact</th>
+										<th scope="col">Type_Of_User</th>
 										</tr>
 								</thead>
 								<%
@@ -208,6 +213,7 @@ table tbody tr:nth-child(odd) {
 									<td><%=j%></td>
 									<td><%=doctor.getUser().getUserName() %></td>
 									<td><%=doctor.getUser().getContactNo() %></td>
+									<td><%=doctor.getUser().getUserType() %></td>
 									
 								<%j=j+1;
 										}
@@ -225,8 +231,9 @@ table tbody tr:nth-child(odd) {
 
 
 
+
 				<div id="di2" class="main1"	style="display: none; margin-left: 20%; margin-top: 7%;">
-					<div class="text-danger "><h2>Pending Doctors</h2></div> 
+					<div class="text-danger "><h2>Pending Doctor's Profile</h2></div> 
 					<div class="container">
 						<div class="row">
 							<%
@@ -334,36 +341,35 @@ table tbody tr:nth-child(odd) {
 			<div id="di3" class="main1"
 				style="display: none; margin-left: 15%; margin-top: 5%;">
 
-				<%
- 								List<Patient> patientList = (List<Patient>)request.getAttribute("patientList"); 
+							<%
+ 								//List<User> usertList12 = (List<User>) request.getAttribute("userList"); 
 				
-								if(patientList!=null){ 
+								if(userList!=null){ 
 							%>
 							<table class="table">
-								<thead class="bg-info text-white">
+								<thead class="bg-info text-black">
 									<tr>
 										<th scope="col">Sr Number</th>
 										<th scope="col">Name</th>
-										<th scope="col">Blood Group</th>
+										<th scope="col">Gender</th>
 										<th scope="col">Delete User</th>
 									</tr>
 								</thead>
+								<tbody>
 								<%
 									int j=1;
-									for(Patient patient : patientList){
-										if(patient.getUser().getIsActive()==true){
+									for(User user1 : userList){
 								%>
-								<tbody>
+								
 								<tr>
 									<td><%=j%></td>
-									<td><%=patient.getUser().getUserName() %></td>
-									<td><%=patient.getBloodGroup() %></td>
-									<td><a  href="delete_doctor?email=<%=patient.getEmailId() %>" ><button type="button" class="btn btn-danger">Delete</button></a></td>
+									<td><%=user1.getUserName() %></td>
+									<td><%=user1.getGender() %></td>
+									<td><a  href="delete_doctor?email=<%=user1.getEmailId() %>" ><button type="button" class="btn btn-danger">Delete</button></a></td>
 									<%-- <td><a href="delete_user.htm?userId=<%=u.getUserId() %>" >Delete</a></td>
 									<td><a href="select_user.htm?userId=<%=u.getUserId() %>" >Select</a></td> --%>
 								</tr>
-								<%j=j+1;
-										}
+								<%j++;
 									}  %>
 									</tbody>
 							</table>
